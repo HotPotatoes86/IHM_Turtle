@@ -30,4 +30,8 @@ public class Pattern {
 		}
 	}
 	
+	public ArrayList<Integer> getParts(){
+		return this.parts;
+	}
+	
 }

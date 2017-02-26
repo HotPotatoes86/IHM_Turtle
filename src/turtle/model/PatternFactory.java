@@ -15,11 +15,12 @@ public final class PatternFactory {
 	public final static ArrayList<Pattern> createSimplePattern(int size){
 		ArrayList<Pattern> res = new ArrayList<>();
 		Pattern p = new Pattern();
-		for (int j=0; j<4; j++){
+		for (int j=0; j<8; j++){
 			for (int i=0; i<size; i++){
 				p.add(j);
 			}
 			res.add(p);
+			p = new Pattern();
 		}
 		return res;
 	}
