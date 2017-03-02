@@ -10,7 +10,7 @@ public class Turtle {
 	public final static int BOARD_SIZE = 15;	//height = width
 	private int[][] board;
 	private int posx=0, posy=0;	//turtle's position
-	private int actual_pattern=-1;
+	private int actual_pattern=0;
 	
 	/*
 	 * List of possible patterns
@@ -18,20 +18,25 @@ public class Turtle {
 	private ArrayList<Pattern> patterns; 
 	
 	//----------------------Constructors----------------------//
-	public Turtle(Color defaultColor){
+	public Turtle(ArrayList<Pattern> p, Color defaultColor){
+		this.patterns = p;
 		this.actualColor = defaultColor;
-		this.patterns = new ArrayList<>();
 		this.board = new int[Turtle.BOARD_SIZE][Turtle.BOARD_SIZE];
 	}
+	
+	//Default Patterns
+	public Turtle(Color defaultColor){
+		this(PatternFactory.createSimplePattern(1), defaultColor);
+	}
 
+	//Default Patterns & Color
 	public Turtle(){
-		this(Color.RED);
+		this(PatternFactory.createSimplePattern(2), Color.RED);
 	}
 	
 	//----------------------Methods----------------------//
 	public void setPatterns(ArrayList<Pattern> p){
 		this.patterns = p;
-		if (p != null) this.actual_pattern=0;
 	}
 	
 	public void go(){
@@ -106,11 +111,13 @@ public class Turtle {
 	}
 	
 	public void init(){
-		
+		this.posx=0;
+		this.posy=0;
 	}
 	
 	//TODO TEMP POUR TEST
 	public void display(){
+		System.out.println("Affichage du plateau :");
 		for (int j=0; j<Turtle.BOARD_SIZE; j++){
 			for (int i=0; i<Turtle.BOARD_SIZE; i++){
 				if (this.posx==i && this.posy==j){
