@@ -24,4 +24,34 @@ public final class PatternFactory {
 		}
 		return res;
 	}
+	
+	public final static ArrayList<Pattern> createReductedPattern(int size){
+		ArrayList<Pattern> res = new ArrayList<>();
+		Pattern p = new Pattern();
+		for (int j=0; j<8; j+=2){
+			for (int i=0; i<size; i++){
+				p.add(j);
+			}
+			res.add(p);
+			p = new Pattern();
+		}
+		return res;
+	}
+	
+	public final static ArrayList<Pattern> createTurningPattern(){
+		ArrayList<Pattern> res = new ArrayList<>();
+		Pattern p = new Pattern();
+		for (int j=0; j<8; j+=2){
+			p.add(j);
+			p.add(j);
+			if (j==7){
+				p.add(0);
+			}else{
+				p.add(j+1);
+			}
+			res.add(p);
+			p = new Pattern();
+		}
+		return res;
+	}
 }

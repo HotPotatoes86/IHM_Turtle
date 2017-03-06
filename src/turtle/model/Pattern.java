@@ -7,13 +7,14 @@ public class Pattern {
 	//----------------------Attributes----------------------//
 	private ArrayList<Integer> parts;
 	
-	public Pattern(ArrayList<Integer> list){
-		this.parts = list;
-	}
 	
 	//----------------------Constructors----------------------//
 	public Pattern(){
 		this.parts = new ArrayList<>();
+	}
+	
+	public Pattern(ArrayList<Integer> list){
+		this.parts = list;
 	}
 	
 	//----------------------Methods----------------------//
