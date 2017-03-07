@@ -1,10 +1,14 @@
-package turtle.IHM;
+package turtle.ihm;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import turtle.model.Turtle;
 
 public class Info extends Box {
+	
         private JPanel my_motives;
         private JPanel my_current_motive;
         private JPanel my_current_color;
@@ -14,7 +18,7 @@ public class Info extends Box {
         private JButton replay;
         private JButton quit;
         
-    public Info(Turtle me) {
+    public Info(Turtle t) {
         super(BoxLayout.PAGE_AXIS);
         
         my_motives = new JPanel();
@@ -29,6 +33,12 @@ public class Info extends Box {
         undo = new JButton("Undo");
         replay = new JButton("Replay");
         quit = new JButton("Quit");
+        quit.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+        });
         
         JPanel panel_button = new JPanel();
         panel_button.setLayout(new GridLayout(2,2));

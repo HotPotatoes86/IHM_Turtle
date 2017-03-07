@@ -1,9 +1,10 @@
-package turtle.IHM;
+package turtle.ihm;
 
 import java.awt.TextArea;
 import javax.swing.*;
 
 public class Instructions extends JPanel{
+	
     private final TextArea text;
     
     public Instructions(){
