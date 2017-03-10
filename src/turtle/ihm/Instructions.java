@@ -12,6 +12,7 @@ public class Instructions extends JPanel{
     public Instructions(){
         super();
         this.text = new TextArea(20,20);
+        this.text.setEditable(false);
         JScrollPane my_scroll = new JScrollPane(text);
         this.add(my_scroll);
     }

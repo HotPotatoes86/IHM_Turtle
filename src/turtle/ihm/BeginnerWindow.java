@@ -14,13 +14,13 @@ public class BeginnerWindow extends JFrame{
 	/**
 	 * Frame with the biginner version of interface
 	 */
-	public BeginnerWindow(){
+	public BeginnerWindow(Turtle turtle){
 		super("I'm a pretty turtle");
         this.add(new Grid());
-        this.add(new Info(new Turtle()), BorderLayout.EAST);
+        this.add(new Info(turtle), BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
         westBox.add(new Instructions());
-        westBox.add(new Command());
+        westBox.add(new Command(turtle));
         this.add(westBox,BorderLayout.WEST);
 	}
 }
