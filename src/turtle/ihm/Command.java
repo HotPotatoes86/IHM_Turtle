@@ -5,17 +5,24 @@ import javax.swing.*;
 
 public class Command extends JPanel {
 	
-    private JComboBox actions;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2228297003945477936L;
+	private JComboBox<Object> actions;
     private JTextArea parameters;
     
+    /**
+     * read and launch the commands
+     */
     public Command(){
         super(new FlowLayout());
         //this.setLayout(new FlowLayout());
         Object[] commands = new Object[]{"GO","TURN","DRAW","COLOR"};
         
-        actions = new JComboBox(commands);
+        this.actions = new JComboBox<>(commands);
         this.add(actions);
-        parameters = new JTextArea("Paramètre de l'action");
+        this.parameters = new JTextArea("Paramètre de l'action");
         this.add(parameters);
         JButton apply = new JButton("Apply");
         this.add(apply);

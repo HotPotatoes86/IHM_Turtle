@@ -5,7 +5,9 @@ import javax.swing.*;
 
 public class Instructions extends JPanel{
 	
-    private final TextArea text;
+	private static final long serialVersionUID = 5413144947849401964L;
+	
+	private final TextArea text;
     
     public Instructions(){
         super();

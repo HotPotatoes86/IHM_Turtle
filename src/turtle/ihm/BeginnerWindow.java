@@ -11,6 +11,9 @@ public class BeginnerWindow extends JFrame{
 
 	private static final long serialVersionUID = -3346917639937664350L;
 
+	/**
+	 * Frame with the biginner version of interface
+	 */
 	public BeginnerWindow(){
 		super("I'm a pretty turtle");
         this.add(new Grid());
