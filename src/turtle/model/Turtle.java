@@ -13,7 +13,7 @@ public class Turtle {
 
 	//----------------------Attributes----------------------//
 	private Color actualColor;
-	public final static int BOARD_SIZE = 15;	//height = width
+	public static int BOARD_SIZE = 15;	//height = width
 	private int[][] board;
 	private int posx=0, posy=0;	//turtle's position
 	private int actual_pattern=0;
@@ -29,9 +29,10 @@ public class Turtle {
 	private ArrayList<Pattern> patterns; 
 	
 	//----------------------Constructors----------------------//
-	public Turtle(ArrayList<Pattern> p, Color defaultColor){
+	public Turtle(ArrayList<Pattern> p, Color defaultColor, int size){
 		this.patterns = p;
 		this.actualColor = defaultColor;
+		Turtle.BOARD_SIZE = size;
 		this.board = new int[Turtle.BOARD_SIZE][Turtle.BOARD_SIZE];
         try {
         	this.fichier.delete();
@@ -42,16 +43,24 @@ public class Turtle {
 	}
 	
 	//Default Patterns
-	public Turtle(Color defaultColor){
-		this(PatternFactory.createSimplePattern(1), defaultColor);
+	public Turtle(Color defaultColor, int size){
+		this(PatternFactory.createSimplePattern(1), defaultColor, size);
 	}
 
 	//Default Patterns & Color
-	public Turtle(){
-		this(PatternFactory.createSimplePattern(2), Color.RED);
+	public Turtle(int size){
+		this(PatternFactory.createSimplePattern(2), Color.RED, size);
 	}
 	
 	//----------------------Methods----------------------//
+	public int getX(){
+		return this.posx;
+	}
+	
+	public int getY(){
+		return this.posy;
+	}
+	
 	public Color getColor(){
 		return this.actualColor;
 	}
@@ -194,20 +203,5 @@ public class Turtle {
 	    }catch (Exception e) {
 	        System.out.println(e);
 	    }
-	}
-	
-	//TODO TEMP POUR TEST
-	public void display(){
-		System.out.println("Affichage du plateau :");
-		for (int j=0; j<Turtle.BOARD_SIZE; j++){
-			for (int i=0; i<Turtle.BOARD_SIZE; i++){
-				if (this.posx==i && this.posy==j){
-					System.out.print("X");
-				}else{
-					System.out.print("_");
-				}
-			}
-			System.out.println("");
-		}
 	}
 }

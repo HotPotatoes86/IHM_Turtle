@@ -12,16 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
-import turtle.model.Turtle;
-
 public class MainWindow extends JFrame{
 	
 	private static final long serialVersionUID = -1798652854312032173L;
 
+	//----------------------Constructors----------------------//
 	public MainWindow(){
     	super("Choisir la version de fenêtrage");
-    	
-    	Turtle turtle = new Turtle();
     	
     	JRadioButton beginnerButton = new JRadioButton("Beginner");
         JRadioButton expertButton = new JRadioButton("Expert");
@@ -40,12 +37,12 @@ public class MainWindow extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				if(beginnerButton.isSelected()){
 					MainWindow.this.dispose();
-					BeginnerWindow bw = new BeginnerWindow(turtle);
+					BeginnerWindow bw = new BeginnerWindow();
 					bw.pack();
 					bw.setVisible(true);
 				}else if(expertButton.isSelected()){
 					MainWindow.this.dispose();
-					ExpertWindow ew = new ExpertWindow(turtle);
+					ExpertWindow ew = new ExpertWindow();
 					ew.pack();
 					ew.setVisible(true);
 				}
@@ -56,6 +53,7 @@ public class MainWindow extends JFrame{
         
     }
     
+	//----------------------Methods----------------------//
     public static void makeIt(){
     	MainWindow window = new MainWindow();
     	window.pack();

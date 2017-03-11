@@ -11,14 +11,13 @@ import turtle.model.Turtle;
 
 public class Command extends JPanel {
 	
-    /**
-	 * 
-	 */
+	//----------------------Attributes----------------------//
 	private static final long serialVersionUID = -2228297003945477936L;
 	private JComboBox<String> actions;
     private JTextArea parameters;
     private Turtle turtle;
     
+  //----------------------Constructors----------------------//
     /**
      * read and launch the commands
      */
@@ -35,6 +34,7 @@ public class Command extends JPanel {
         this.addApplyButton();
     }
     
+  //----------------------Methods----------------------//
     public void addApplyButton(){
     	JButton apply = new JButton("Apply");
         apply.addActionListener(new ActionListener(){
@@ -46,12 +46,23 @@ public class Command extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				String parameters = Command.this.parameters.getText().toLowerCase();
 				String val = (String)Command.this.actions.getSelectedItem();
-				switch (val){
-					case "GO": Command.this.turtle.go(Integer.parseInt(parameters)); break;
-					case "TURN": Command.this.turtle.turn(Integer.parseInt(parameters)); break;
-					case "DRAW": Command.this.turtle.draw(); break;
-					case "COLOR": Command.this.turtle.color(Color.getColor(parameters)); break;
-					default: break;
+				//string not null or empty
+				if (parameters != null && !parameters.isEmpty()){
+					switch (val){
+						case "GO": Command.this.turtle.go(Integer.parseInt(parameters)); break;
+						case "TURN": Command.this.turtle.turn(Integer.parseInt(parameters)); break;
+						case "DRAW": Command.this.turtle.draw(); break;
+						case "COLOR": Command.this.turtle.color(Color.getColor(parameters)); break;
+						default: break;
+					}
+				}else{
+					switch (val){
+						case "GO": Command.this.turtle.go(); break;
+						case "TURN": Command.this.turtle.turn(); break;
+						case "DRAW": Command.this.turtle.draw(); break;
+						case "COLOR": break;
+						default: break;
+					}
 				}
 				
 			}

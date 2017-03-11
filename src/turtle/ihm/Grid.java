@@ -12,23 +12,40 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import turtle.model.Turtle;
+
 public class Grid extends JPanel{
     
+	//----------------------Attributes----------------------//
 	private static final long serialVersionUID = 7892049671166136728L;
+	
+	private Turtle turtle;
+	private int size;
 
+	//----------------------Constructors----------------------//
 	/**
 	 * the grid where the turtle move
+	 * @param t turtle on the grid
+	 * @param size size of the grid
 	 */
-	public Grid(){
+	public Grid(Turtle t){
 		super(new GridLayout(20,20));
+		this.turtle = t;
+		this.size = Turtle.BOARD_SIZE;
 		this.setBackground(Color.WHITE);
 		this.setOpaque(true);
-		for (int i=0; i<20*20; i++){
+		for (int i=0; i<size*size; i++){
 			JLabel l = new JLabel();
-			l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			l.setBorder(BorderFactory.createLoweredBevelBorder());
 			l.setPreferredSize(new Dimension(20,20));
 			this.add(l);
 		}
+	}
+	
+	//----------------------Methods----------------------//
+	//TODO fonction pas sur, marche pas
+	public void update(){
+		this.paintComponent(getGraphics());
 	}
 	
 	/**
@@ -45,5 +62,9 @@ public class Grid extends JPanel{
         g2.setStroke(new BasicStroke(5));
         g2.setColor(c);
         g2.draw(new Line2D.Float(x1, y1, x2, y2));
+	}
+	
+	public void paintComponent(Graphics g){
+		g.drawOval(this.turtle.getX(), this.turtle.getY(), 10, 10);
 	}
 }

@@ -11,13 +11,18 @@ public class BeginnerWindow extends JFrame{
 
 	private static final long serialVersionUID = -3346917639937664350L;
 
+	public final static int BOARD_SIZE = 20;
+	
 	/**
 	 * Frame with the beginner version of interface
 	 */
-	public BeginnerWindow(Turtle turtle){
+	public BeginnerWindow(){
 		super("I'm a pretty turtle");
-        this.add(new Grid());
-        this.add(new Info(turtle), BorderLayout.EAST);
+		Turtle turtle = new Turtle(BOARD_SIZE);
+		Grid grid = new Grid(turtle);
+		Info info = new Info(turtle);
+        this.add(grid);
+        this.add(info, BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
         westBox.add(new Instructions());
         westBox.add(new Command(turtle));
