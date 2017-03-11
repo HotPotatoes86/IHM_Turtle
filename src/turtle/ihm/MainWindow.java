@@ -43,6 +43,11 @@ public class MainWindow extends JFrame{
 					BeginnerWindow bw = new BeginnerWindow(turtle);
 					bw.pack();
 					bw.setVisible(true);
+				}else if(expertButton.isSelected()){
+					MainWindow.this.dispose();
+					ExpertWindow ew = new ExpertWindow(turtle);
+					ew.pack();
+					ew.setVisible(true);
 				}
 			}
         });
