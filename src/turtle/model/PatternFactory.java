@@ -41,13 +41,15 @@ public final class PatternFactory {
 	public final static ArrayList<Pattern> createTurningPattern(){
 		ArrayList<Pattern> res = new ArrayList<>();
 		Pattern p = new Pattern();
-		for (int j=0; j<8; j+=2){
+		for (int j=0; j<8; j++){
 			p.add(j);
 			p.add(j);
-			if (j==7){
+			if (j==6){
 				p.add(0);
+			}else if (j==7){
+				p.add(1);
 			}else{
-				p.add(j+1);
+				p.add(j+2);
 			}
 			res.add(p);
 			p = new Pattern();

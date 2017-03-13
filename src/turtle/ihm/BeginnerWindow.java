@@ -24,8 +24,8 @@ public class BeginnerWindow extends JFrame{
         this.add(grid);
         this.add(info, BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
-        westBox.add(new Instructions());
-        westBox.add(new Command(turtle));
+        westBox.add(new History());
+        westBox.add(new Command(turtle, info.getActualPanel(), info.getActualColor()));
         this.add(westBox,BorderLayout.WEST);
 	}
 }

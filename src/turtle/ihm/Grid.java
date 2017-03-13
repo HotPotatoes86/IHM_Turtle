@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
 import javax.swing.BorderFactory;
@@ -65,6 +66,10 @@ public class Grid extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g){
-		g.drawOval(this.turtle.getX(), this.turtle.getY(), 10, 10);
+		Graphics2D g2 = (Graphics2D) g;
+        //g2.setStroke(new BasicStroke(5));
+        g2.setColor(Color.BLACK);;
+        int radius = 10;
+		g2.draw(new Ellipse2D.Double(this.turtle.getX() + radius, this.turtle.getY() + radius, 2.0 * radius, 2.0 * radius));
 	}
 }

@@ -22,7 +22,7 @@ public class ExpertWindow extends JFrame{
         this.add(new Grid(turtle));
         this.add(new Info(turtle), BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
-        westBox.add(new Instructions());
+        westBox.add(new History());
         westBox.add(new Command(turtle));
         this.add(westBox,BorderLayout.WEST);
 	}

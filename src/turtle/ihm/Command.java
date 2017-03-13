@@ -16,13 +16,17 @@ public class Command extends JPanel {
 	private JComboBox<String> actions;
     private JTextArea parameters;
     private Turtle turtle;
+    private PatternPanel pattern_pan;
+    private JPanel colorPanel;
     
   //----------------------Constructors----------------------//
     /**
      * read and launch the commands
      */
-    public Command(Turtle turtle){
+    public Command(Turtle turtle, PatternPanel pan, JPanel pan2){
         super(new FlowLayout());
+        this.colorPanel = pan2;
+        this.pattern_pan = pan;
         this.turtle = turtle;
         String[] commands = new String[]{"GO","TURN","DRAW","COLOR"};
         
@@ -50,15 +54,22 @@ public class Command extends JPanel {
 				if (parameters != null && !parameters.isEmpty()){
 					switch (val){
 						case "GO": Command.this.turtle.go(Integer.parseInt(parameters)); break;
-						case "TURN": Command.this.turtle.turn(Integer.parseInt(parameters)); break;
+						case "TURN": Command.this.turtle.turn(Integer.parseInt(parameters)); 
+									Command.this.pattern_pan.repaint();
+									break;
 						case "DRAW": Command.this.turtle.draw(); break;
-						case "COLOR": Command.this.turtle.color(Color.getColor(parameters)); break;
+						case "COLOR": Command.this.turtle.color(Color.getColor(parameters)); 
+									Command.this.colorPanel.setBackground(Color.getColor(parameters));
+									Command.this.colorPanel.setOpaque(true);
+									break;
 						default: break;
 					}
 				}else{
 					switch (val){
 						case "GO": Command.this.turtle.go(); break;
-						case "TURN": Command.this.turtle.turn(); break;
+						case "TURN": Command.this.turtle.turn(); 
+									Command.this.pattern_pan.repaint();
+									break;
 						case "DRAW": Command.this.turtle.draw(); break;
 						case "COLOR": break;
 						default: break;

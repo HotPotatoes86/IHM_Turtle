@@ -49,7 +49,7 @@ public class Turtle {
 
 	//Default Patterns & Color
 	public Turtle(int size){
-		this(PatternFactory.createSimplePattern(2), Color.RED, size);
+		this(PatternFactory.createTurningPattern(), Color.RED, size);
 	}
 	
 	//----------------------Methods----------------------//
