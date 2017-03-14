@@ -19,9 +19,8 @@ public class Turtle {
 	private int actual_pattern=0;
 	private boolean draw = false;
 	
-	private final String chemin = "save.txt";
-    private final File fichier = new File(chemin); 
-    private int nbSaveLines=0;
+	public final static String chemin = "save.txt";
+    private final static File fichier = new File(chemin); 
 	
 	/*
 	 * List of possible patterns
@@ -65,6 +64,19 @@ public class Turtle {
 		return this.actualColor;
 	}
 	
+	public void setActualPattern(int n) {
+		this.actual_pattern = n;
+	}
+	
+	public int getNumberActualPattern() {
+		return this.actual_pattern;
+	}
+	
+	public void setCoordinates(int x, int y) {
+		this.posx = x;
+		this.posy = y;
+	}
+	
 	public ArrayList<Pattern> getPatterns(){
 		return this.patterns;
 	}
@@ -73,83 +85,24 @@ public class Turtle {
 		return this.patterns.get(this.actual_pattern);
 	}
 	
-	public void writeSave(String txt){
-		try {
-            final FileWriter writer = new FileWriter(fichier,true);
-            try {
-            	this.nbSaveLines++;
-                writer.write(txt+"\n");
-            } finally {
-                writer.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-	}
-	
 	public void setPatterns(ArrayList<Pattern> p){
 		this.patterns = p;
 	}
 	
 	public void go(){
-		if (this.actual_pattern>=0){
-			this.writeSave("go()");
-			for (int x : this.patterns.get(this.actual_pattern).getParts()){
-				switch (x){
-					case 0: if (this.posy>0) this.posy--;
-						break;
-					case 1:	if (this.posy>0 && this.posx<Turtle.BOARD_SIZE-1){
-								this.posy--;
-								this.posx++;
-							}
-						break;
-					case 2: if (this.posx<Turtle.BOARD_SIZE-1) this.posx++;
-						break;
-					case 3: if (this.posy<Turtle.BOARD_SIZE-1 && this.posx<Turtle.BOARD_SIZE-1){
-								this.posy++;
-								this.posx++;
-							}
-						break;
-					case 4: if (this.posy<Turtle.BOARD_SIZE-1) this.posy++;
-						break;
-					case 5: if (this.posy<Turtle.BOARD_SIZE-1 && this.posx>0){
-								this.posy++;
-								this.posx--;
-							}
-					case 6: if (this.posx>0) this.posx--;
-						break;
-					case 7: if (this.posy>0 && this.posx>0){
-								this.posy--;
-								this.posx--;
-							}
-					default: 
-						break;
-				}
-			}
-		}
+		CommandGo.use(this);
 	}
 	
 	public void go(int k){
-		for (int i=0; i<k; i++){
-			this.go();
-		}
+		CommandGo.use(k, this);
 	}
 	
 	public void turn(){
-		if (this.actual_pattern>=0){
-			this.writeSave("turn()");
-			if (this.actual_pattern<this.patterns.size()-1){
-				this.actual_pattern++;
-			}else{
-				this.actual_pattern=0;
-			}
-		}
+		CommandTurn.use(this);
 	}
 	
 	public void turn(int k){
-		for (int i=0; i<k; i++){
-			this.turn();
-		}
+		CommandTurn.use(k, this);
 	}
 	
 	public void draw(){
@@ -160,37 +113,13 @@ public class Turtle {
 		this.draw = false;
 	}
 	
-	public void color(Color col){
-		this.writeSave("color("+col+")");
-		this.actualColor = col;
+	public void undo() {
+		CommandUndo.use();
 	}
 	
-	public static boolean deleteLine(String fileName, int lineNumber) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
-            StringBuffer sb = new StringBuffer(); 
-            String line;    
-            int nbLinesRead = 0;       
-            while ((line = reader.readLine()) != null) {
-                if (nbLinesRead != lineNumber) {
-                    sb.append(line + "\n");
-                }
-                nbLinesRead++;
-            }
-            reader.close();
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-            out.write(sb.toString());
-            out.close();
- 
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-	
-	public void undo(){
-		Turtle.deleteLine("sauvegarde.txt",this.nbSaveLines-1);
-		this.nbSaveLines--;
+	public void color(Color col){
+		CommandUndo.writeSave("color("+col+")");
+		this.actualColor = col;
 	}
 	
 	public void init(){
@@ -199,7 +128,8 @@ public class Turtle {
 		this.actual_pattern=0;
 		try{
 	        this.fichier.delete();
-	        this.nbSaveLines=0;
+	        this.fichier.createNewFile();
+	        //this.nbSaveLines=0;
 	    }catch (Exception e) {
 	        System.out.println(e);
 	    }

@@ -18,13 +18,15 @@ public class Command extends JPanel {
     private Turtle turtle;
     private PatternPanel pattern_pan;
     private JPanel colorPanel;
+    private Grid grid;
     
   //----------------------Constructors----------------------//
     /**
      * read and launch the commands
      */
-    public Command(Turtle turtle, PatternPanel pan, JPanel pan2){
+    public Command(Turtle turtle, Grid g, PatternPanel pan, JPanel pan2){
         super(new FlowLayout());
+        this.grid = g;
         this.colorPanel = pan2;
         this.pattern_pan = pan;
         this.turtle = turtle;
@@ -75,7 +77,8 @@ public class Command extends JPanel {
 						default: break;
 					}
 				}
-				
+				Command.this.grid.repaint();
+				History.addText(val + "(" + parameters +")");
 			}
         	
         });

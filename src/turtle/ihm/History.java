@@ -3,17 +3,20 @@ package turtle.ihm;
 import java.awt.TextArea;
 import javax.swing.*;
 
-public class History extends JPanel{
+public final class History extends JPanel{
 	
 	private static final long serialVersionUID = 5413144947849401964L;
 	
-	private final TextArea text;
-    
+	private static final TextArea text = new TextArea(20,20);
+	private static JScrollPane my_scroll = new JScrollPane(text);
+	
     public History(){
         super();
-        this.text = new TextArea(20,20);
-        this.text.setEditable(false);
-        JScrollPane my_scroll = new JScrollPane(text);
-        this.add(my_scroll);
+        History.text.setEditable(false);
+        this.add(text);
+    }
+    
+    public static void addText(String txt) {
+    	History.text.setText(History.text.getText() + txt + "\n");
     }
 }

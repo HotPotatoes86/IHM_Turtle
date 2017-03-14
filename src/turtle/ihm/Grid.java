@@ -44,11 +44,6 @@ public class Grid extends JPanel{
 	}
 	
 	//----------------------Methods----------------------//
-	//TODO fonction pas sur, marche pas
-	public void update(){
-		this.paintComponent(getGraphics());
-	}
-	
 	/**
 	 * draw a line on the panel (the grid)
 	 * @param g graphics
@@ -70,6 +65,6 @@ public class Grid extends JPanel{
         //g2.setStroke(new BasicStroke(5));
         g2.setColor(Color.BLACK);;
         int radius = 10;
-		g2.draw(new Ellipse2D.Double(this.turtle.getX() + radius, this.turtle.getY() + radius, 2.0 * radius, 2.0 * radius));
+		g2.draw(new Ellipse2D.Double(this.turtle.getX()*20/2 + radius, this.turtle.getY()*20/2 + radius, 2.0 * radius, 2.0 * radius));
 	}
 }

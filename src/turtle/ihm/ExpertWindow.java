@@ -19,11 +19,13 @@ public class ExpertWindow extends JFrame{
 	public ExpertWindow(){
 		super("I'm a pretty turtle");
 		Turtle turtle = new Turtle(BOARD_SIZE);
-        this.add(new Grid(turtle));
-        this.add(new Info(turtle), BorderLayout.EAST);
+		Grid grid = new Grid(turtle);
+		Info info = new Info(turtle);
+        this.add(grid);
+        this.add(info, BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
         westBox.add(new History());
-        westBox.add(new Command(turtle));
+        westBox.add(new Command(turtle, grid, info.getActualPanel(), info.getActualColor()));
         this.add(westBox,BorderLayout.WEST);
 	}
 }
