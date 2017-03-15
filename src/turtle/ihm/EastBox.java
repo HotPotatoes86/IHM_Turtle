@@ -6,9 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import turtle.model.CommandUndo;
 import turtle.model.Turtle;
 
-public class Info extends Box {
+public class EastBox extends Box {
 	
 	private static final long serialVersionUID = -124758012473642027L;
 	
@@ -20,9 +22,15 @@ public class Info extends Box {
     private JButton undo;
     private JButton replay;
     private JButton quit;
+    
+    private Turtle turtle;
+    private Grid grid;
         
-    public Info(Turtle t) {
+    public EastBox(Turtle t, Grid g) {
         super(BoxLayout.PAGE_AXIS);
+        
+        this.turtle = t;
+        this.grid = g;
         
         this.my_patterns = new PatternPanel(t);
         this.my_current_pattern = new PatternPanel(t,true);
@@ -53,12 +61,25 @@ public class Info extends Box {
      */
     public void initButtons(){
     	 this.init = new JButton("Init");
+    	 this.init.addActionListener(new ActionListener() {
+        	 @Override
+        	 public void actionPerformed(ActionEvent event) {
+        		 EastBox.this.turtle.init();
+        	 }
+         });
          this.undo = new JButton("Undo");
+         this.undo.addActionListener(new ActionListener() {
+        	 @Override
+        	 public void actionPerformed(ActionEvent event) {
+        		 EastBox.this.turtle.undo(grid, EastBox.this.my_current_pattern);
+ 				 History.deleteLastLine();
+        	 }
+         });
          this.replay = new JButton("Replay");
          this.quit = new JButton("Quit");
          this.quit.addActionListener(new ActionListener(){
  			@Override
- 			public void actionPerformed(ActionEvent arg0) {
+ 			public void actionPerformed(ActionEvent event) {
  				System.exit(0);
  			}
          });

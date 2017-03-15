@@ -44,12 +44,12 @@ public final class PatternFactory {
 		for (int j=0; j<8; j++){
 			p.add(j);
 			p.add(j);
-			if (j==6){
-				p.add(0);
-			}else if (j==7){
-				p.add(1);
+			if (j==1){
+				p.add(7);
+			}else if (j==0){
+				p.add(6);
 			}else{
-				p.add(j+2);
+				p.add(j-2);
 			}
 			res.add(p);
 			p = new Pattern();

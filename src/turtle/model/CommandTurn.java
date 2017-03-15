@@ -1,5 +1,7 @@
 package turtle.model;
 
+import turtle.ihm.Command;
+
 public final class CommandTurn{
 	
 	public static void use(Turtle t){
@@ -8,6 +10,14 @@ public final class CommandTurn{
 			t.setActualPattern(t.getNumberActualPattern()+1);
 		}else{
 			t.setActualPattern(0);
+		}
+	}
+	
+	public static void undo(Turtle t){
+		if (t.getNumberActualPattern()>0){
+			t.setActualPattern(t.getNumberActualPattern()-1);
+		}else{
+			t.setActualPattern(t.getPatterns().size()-1);
 		}
 	}
 	

@@ -5,12 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import turtle.model.Turtle;
@@ -18,32 +15,32 @@ import turtle.model.Turtle;
 public class Grid extends JPanel{
     
 	//----------------------Attributes----------------------//
-	private static final long serialVersionUID = 7892049671166136728L;
+	private static final long serialVersionUID = 4333155750571403673L;
 	
 	private Turtle turtle;
-	private int size;
+	private int board_size;
+	public final static int BOX_SIZE = 20;
 
 	//----------------------Constructors----------------------//
 	/**
 	 * the grid where the turtle move
 	 * @param t turtle on the grid
-	 * @param size size of the grid
+	 * @param board_size board_size of the grid
 	 */
 	public Grid(Turtle t){
-		super(new GridLayout(20,20));
 		this.turtle = t;
-		this.size = Turtle.BOARD_SIZE;
+		this.board_size = Turtle.BOARD_SIZE;
 		this.setBackground(Color.WHITE);
 		this.setOpaque(true);
-		for (int i=0; i<size*size; i++){
-			JLabel l = new JLabel();
-			l.setBorder(BorderFactory.createLoweredBevelBorder());
-			l.setPreferredSize(new Dimension(20,20));
-			this.add(l);
-		}
+		this.setSize(new Dimension(this.board_size*BOX_SIZE, this.board_size*BOX_SIZE));
+		this.repaint();
 	}
 	
 	//----------------------Methods----------------------//
+	public int getBoardSize() {
+		return this.board_size;
+	}
+	
 	/**
 	 * draw a line on the panel (the grid)
 	 * @param g graphics
@@ -61,10 +58,30 @@ public class Grid extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-        //g2.setStroke(new BasicStroke(5));
+		g2.setStroke(new BasicStroke(1));
+        g2.setColor(Color.LIGHT_GRAY);
+        for (int i=0; i<this.board_size; i++){
+        	for (int j=0; j<this.board_size; j++){
+        		g2.draw(new Line2D.Float(i*BOX_SIZE, j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE));
+            	g2.draw(new Line2D.Float(j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE, i*BOX_SIZE));
+        	}
+        }
+        g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.BLACK);;
-        int radius = 10;
-		g2.draw(new Ellipse2D.Double(this.turtle.getX()*20/2 + radius, this.turtle.getY()*20/2 + radius, 2.0 * radius, 2.0 * radius));
+        int radius = 5;
+		g2.draw(new Ellipse2D.Double(this.turtle.getX()*BOX_SIZE + radius, this.turtle.getY()*BOX_SIZE + radius, 2.0 * radius, 2.0 * radius));
 	}
+	
+	@Override
+	public Dimension getPreferredSize(){
+		return this.getSize();
+	}
+
+	@Override
+	public Dimension getSize(){
+		return (new Dimension(this.getBoardSize()*Grid.BOX_SIZE, this.getBoardSize()*Grid.BOX_SIZE));
+	}
+
 }

@@ -30,8 +30,8 @@ public class Command extends JPanel {
         this.colorPanel = pan2;
         this.pattern_pan = pan;
         this.turtle = turtle;
-        String[] commands = new String[]{"GO","TURN","DRAW","COLOR"};
         
+        String[] commands = new String[]{"GO","TURN","DRAW","COLOR"};
         this.actions = new JComboBox<>(commands);
         this.add(actions);
         this.parameters = new JTextArea(1, 5);

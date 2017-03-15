@@ -88,22 +88,22 @@ public class PatternPanel extends JPanel{
 	        switch (x){
 				case 0: posy -=LINE_WIDTH;
 						break;
-				case 1:	posx -=LINE_WIDTH;
+				case 1:	posx +=LINE_WIDTH;
 						posy -=LINE_WIDTH;
 						break;
-				case 2: posx -=LINE_WIDTH;
+				case 2: posx +=LINE_WIDTH;
 						break;
-				case 3:	posx -=LINE_WIDTH;
+				case 3:	posx +=LINE_WIDTH;
 						posy +=LINE_WIDTH;
 						break;
 				case 4: posy +=LINE_WIDTH;
 						break;
-				case 5:	posx +=LINE_WIDTH;
+				case 5:	posx -=LINE_WIDTH;
 						posy +=LINE_WIDTH;
 						break;
-				case 6: posx +=LINE_WIDTH;
+				case 6: posx -=LINE_WIDTH;
 						break;
-				case 7:	posx +=LINE_WIDTH;
+				case 7:	posx -=LINE_WIDTH;
 						posy -=LINE_WIDTH;
 						break;
 				default: 

@@ -1,5 +1,8 @@
 package turtle.model;
 
-public class CommandDraw {
+public final class CommandDraw {
 
+	public static void use(Turtle t) {
+		t.setDraw(!t.getDraw());
+	}
 }

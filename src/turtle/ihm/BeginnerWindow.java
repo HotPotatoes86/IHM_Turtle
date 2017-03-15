@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 
 import turtle.model.Turtle;
 
@@ -20,7 +21,7 @@ public class BeginnerWindow extends JFrame{
 		super("I'm a pretty turtle");
 		Turtle turtle = new Turtle(BOARD_SIZE);
 		Grid grid = new Grid(turtle);
-		Info info = new Info(turtle);
+		EastBox info = new EastBox(turtle, grid);
         this.add(grid);
         this.add(info, BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();

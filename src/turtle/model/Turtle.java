@@ -9,12 +9,14 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import turtle.ihm.Grid;
+import turtle.ihm.PatternPanel;
+
 public class Turtle {
 
 	//----------------------Attributes----------------------//
 	private Color actualColor;
 	public static int BOARD_SIZE = 15;	//height = width
-	private int[][] board;
 	private int posx=0, posy=0;	//turtle's position
 	private int actual_pattern=0;
 	private boolean draw = false;
@@ -32,10 +34,9 @@ public class Turtle {
 		this.patterns = p;
 		this.actualColor = defaultColor;
 		Turtle.BOARD_SIZE = size;
-		this.board = new int[Turtle.BOARD_SIZE][Turtle.BOARD_SIZE];
         try {
-        	this.fichier.delete();
-            this.fichier .createNewFile();
+        	Turtle.fichier.delete();
+            Turtle.fichier .createNewFile();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -52,6 +53,14 @@ public class Turtle {
 	}
 	
 	//----------------------Methods----------------------//
+	public void setDraw(boolean b) {
+		this.draw = b;
+	}
+	
+	public boolean getDraw() {
+		return this.draw;
+	}
+	
 	public int getX(){
 		return this.posx;
 	}
@@ -105,16 +114,17 @@ public class Turtle {
 		CommandTurn.use(k, this);
 	}
 	
-	public void draw(){
-		this.draw = true;
+	public void draw() {
+		CommandDraw.use(this);
 	}
 	
-	public void stopDraw(){
-		this.draw = false;
-	}
-	
-	public void undo() {
-		CommandUndo.use();
+	/**
+	 * undo the last command
+	 * @param g the grid to repaint
+	 * @param p the pattern panel to repaint
+	 */
+	public void undo(Grid g, PatternPanel p) {
+		CommandUndo.use(this, g, p);
 	}
 	
 	public void color(Color col){
@@ -127,8 +137,8 @@ public class Turtle {
 		this.posy=0;
 		this.actual_pattern=0;
 		try{
-	        this.fichier.delete();
-	        this.fichier.createNewFile();
+	        Turtle.fichier.delete();
+	        Turtle.fichier.createNewFile();
 	        //this.nbSaveLines=0;
 	    }catch (Exception e) {
 	        System.out.println(e);
