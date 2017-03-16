@@ -21,11 +21,9 @@ public class ExpertWindow extends JFrame{
 		Turtle turtle = new Turtle(BOARD_SIZE);
 		Grid grid = new Grid(turtle);
 		EastBox info = new EastBox(turtle, grid);
+		ExpertCommand command = new ExpertCommand(turtle);
         this.add(grid);
         this.add(info, BorderLayout.EAST);
-        Box westBox = Box.createVerticalBox();
-        westBox.add(new History());
-        westBox.add(new Command(turtle, grid, info.getActualPanel(), info.getActualColor()));
-        this.add(westBox,BorderLayout.WEST);
+        this.add(command,BorderLayout.WEST);
 	}
 }

@@ -1,17 +1,16 @@
 package turtle.ihm;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import turtle.model.CommandUndo;
 import turtle.model.Turtle;
 
 public class EastBox extends Box {
 	
+	//----------------------Attributes----------------------//
 	private static final long serialVersionUID = -124758012473642027L;
 	
 	private PatternPanel my_patterns;
@@ -26,16 +25,15 @@ public class EastBox extends Box {
     private Turtle turtle;
     private Grid grid;
         
+  //----------------------Constructors----------------------//
     public EastBox(Turtle t, Grid g) {
         super(BoxLayout.PAGE_AXIS);
         
         this.turtle = t;
         this.grid = g;
-        
         this.my_patterns = new PatternPanel(t);
         this.my_current_pattern = new PatternPanel(t,true);
         this.my_current_color = new JPanel();
-        
         this.my_current_color.setBackground(t.getColor());
         this.my_current_color.setOpaque(true);
         
@@ -48,6 +46,7 @@ public class EastBox extends Box {
         this.initButtons();
    }
     
+  //----------------------Methods----------------------//
     public JPanel getActualColor(){
     	return this.my_current_color;
     }

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 
 import turtle.model.Turtle;
 
@@ -22,12 +21,12 @@ public class BeginnerWindow extends JFrame{
 		Turtle turtle = new Turtle(BOARD_SIZE);
 		Grid grid = new Grid(turtle);
 		EastBox info = new EastBox(turtle, grid);
-        this.add(grid);
-        this.add(info, BorderLayout.EAST);
         Box westBox = Box.createVerticalBox();
         History hist = new History();
         westBox.add(hist);
         westBox.add(new Command(turtle, grid, info.getActualPanel(), info.getActualColor()));
+        this.add(grid);
+        this.add(info, BorderLayout.EAST);
         this.add(westBox,BorderLayout.WEST);
 	}
 }
