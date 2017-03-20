@@ -62,7 +62,7 @@ public class Grid extends JPanel{
 		g2.setStroke(new BasicStroke(5));
         boolean test = false;
         int x=0, y=0;
-        for (Object[] tab : turtle.getPatternDrawed()) {
+        for (Object[] tab : this.turtle.getPatternDrawed()) {
         	try {
         		if (test) {
             		test=false;
