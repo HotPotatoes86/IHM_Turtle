@@ -15,7 +15,7 @@ public class Turtle {
 	private int posx=0, posy=0;	//turtle's position
 	private int actual_pattern=0;
 	private boolean draw = false;
-	private ArrayList<Integer[]> patternsDrawed;
+	private ArrayList<Object[]> patternsDrawed;
 	
 	public final static String chemin = "save.txt";
     private final static File fichier = new File(chemin); 
@@ -50,18 +50,19 @@ public class Turtle {
 	}
 	
 	//----------------------Methods----------------------//
-	public void addDrawedPattern(int x, int y) {
-		Integer[] tab = new Integer[2];
+	public void addPatternDrawed(int x, int y, Color c) {
+		Object[] tab = new Object[3];
 		tab[0] = x;
 		tab[1] = y;
+		tab[2] = c;
 		this.patternsDrawed.add(tab);
 	}
 	
-	public ArrayList<Integer[]> getDrawedPatterns(){
+	public ArrayList<Object[]> getPatternDrawed(){
 		return this.patternsDrawed;
 	}
 	
-	public void deleteLastDrawedPattern() {
+	public void deleteLastPatternDrawed() {
 		this.patternsDrawed.remove(this.patternsDrawed.size()-1);
 	}
 	

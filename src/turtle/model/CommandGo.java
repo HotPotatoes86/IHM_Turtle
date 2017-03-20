@@ -8,7 +8,7 @@ public final class CommandGo {
 		CommandUndo.writeSave("go()");
 		History.addText("go()");
 		for (int x : t.getActualPattern().getParts()){
-			if (t.getDraw()) t.addDrawedPattern(t.getX(), t.getY());
+			if (t.getDraw()) t.addPatternDrawed(t.getX(), t.getY(), t.getColor());
 			switch (x){
 				case 0: if (t.getY()>0) t.setCoordinates(t.getX(), t.getY()-1);
 					break;
@@ -29,13 +29,13 @@ public final class CommandGo {
 				default: 
 					break;
 			}
-			if (t.getDraw()) t.addDrawedPattern(t.getX(), t.getY());
+			if (t.getDraw()) t.addPatternDrawed(t.getX(), t.getY(), t.getColor());
 		}
 	}
 	
 	public static void undo(Turtle t){
 		for (int x : t.getActualPattern().getParts()){
-			if (t.getDraw()) t.deleteLastDrawedPattern();
+			if (t.getDraw()) t.deleteLastPatternDrawed();
 			switch (x){
 				case 0: if (t.getY()>0) t.setCoordinates(t.getX(), t.getY()+1);
 					break;
@@ -56,7 +56,7 @@ public final class CommandGo {
 				default: 
 					break;
 			}
-			if (t.getDraw()) t.deleteLastDrawedPattern();
+			if (t.getDraw()) t.deleteLastPatternDrawed();
 		}
 	}
 	

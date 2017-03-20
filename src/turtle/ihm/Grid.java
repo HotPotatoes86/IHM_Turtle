@@ -60,17 +60,21 @@ public class Grid extends JPanel{
 		g2.draw(new Ellipse2D.Double(this.turtle.getX()*BOX_SIZE + radius, this.turtle.getY()*BOX_SIZE + radius, 2.0 * radius, 2.0 * radius));
 		//Patterns
 		g2.setStroke(new BasicStroke(5));
-        g2.setColor(turtle.getColor());
         boolean test = false;
         int x=0, y=0;
-        for (Integer[] tab : turtle.getDrawedPatterns()) {
-        	if (test) {
-        		test=false;
-        		g2.draw(new Line2D.Float(x*BOX_SIZE, y*BOX_SIZE, tab[0]*BOX_SIZE, tab[1]*BOX_SIZE));
-        	}else {
-        		test=true;
-        		x=tab[0];
-        		y=tab[1];
+        for (Object[] tab : turtle.getPatternDrawed()) {
+        	try {
+        		if (test) {
+            		test=false;
+            		g2.setColor((Color)tab[2]);
+            		g2.draw(new Line2D.Float(x*BOX_SIZE, y*BOX_SIZE, (int)tab[0]*BOX_SIZE, (int)tab[1]*BOX_SIZE));
+            	}else {
+            		test=true;
+            		x=(int)tab[0];
+            		y=(int)tab[1];
+            	}
+        	}catch (Exception e) {
+        		System.out.println(e);
         	}
         }
 	}
