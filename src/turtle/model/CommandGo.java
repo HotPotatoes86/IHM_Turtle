@@ -1,10 +1,14 @@
 package turtle.model;
 
+import turtle.ihm.History;
+
 public final class CommandGo {
 	
 	public static void use(Turtle t){
 		CommandUndo.writeSave("go()");
+		History.addText("go()");
 		for (int x : t.getActualPattern().getParts()){
+			if (t.getDraw()) t.addDrawedPattern(t.getX(), t.getY());
 			switch (x){
 				case 0: if (t.getY()>0) t.setCoordinates(t.getX(), t.getY()-1);
 					break;
@@ -25,11 +29,13 @@ public final class CommandGo {
 				default: 
 					break;
 			}
+			if (t.getDraw()) t.addDrawedPattern(t.getX(), t.getY());
 		}
 	}
 	
 	public static void undo(Turtle t){
 		for (int x : t.getActualPattern().getParts()){
+			if (t.getDraw()) t.deleteLastDrawedPattern();
 			switch (x){
 				case 0: if (t.getY()>0) t.setCoordinates(t.getX(), t.getY()+1);
 					break;
@@ -50,6 +56,7 @@ public final class CommandGo {
 				default: 
 					break;
 			}
+			if (t.getDraw()) t.deleteLastDrawedPattern();
 		}
 	}
 	

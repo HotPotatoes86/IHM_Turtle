@@ -1,12 +1,7 @@
 package turtle.model;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import turtle.ihm.Grid;
@@ -20,6 +15,7 @@ public class Turtle {
 	private int posx=0, posy=0;	//turtle's position
 	private int actual_pattern=0;
 	private boolean draw = false;
+	private ArrayList<Integer[]> patternsDrawed;
 	
 	public final static String chemin = "save.txt";
     private final static File fichier = new File(chemin); 
@@ -33,6 +29,7 @@ public class Turtle {
 	public Turtle(ArrayList<Pattern> p, Color defaultColor, int size){
 		this.patterns = p;
 		this.actualColor = defaultColor;
+		this.patternsDrawed = new ArrayList<>();
 		Turtle.BOARD_SIZE = size;
         try {
         	Turtle.fichier.delete();
@@ -53,6 +50,21 @@ public class Turtle {
 	}
 	
 	//----------------------Methods----------------------//
+	public void addDrawedPattern(int x, int y) {
+		Integer[] tab = new Integer[2];
+		tab[0] = x;
+		tab[1] = y;
+		this.patternsDrawed.add(tab);
+	}
+	
+	public ArrayList<Integer[]> getDrawedPatterns(){
+		return this.patternsDrawed;
+	}
+	
+	public void deleteLastDrawedPattern() {
+		this.patternsDrawed.remove(this.patternsDrawed.size()-1);
+	}
+	
 	public void setDraw(boolean b) {
 		this.draw = b;
 	}

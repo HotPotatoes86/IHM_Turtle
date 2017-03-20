@@ -1,5 +1,8 @@
 package turtle.model;
 
-public class CommandInit {
+public final class CommandInit {
 
+	public static void use(Turtle t) {
+		
+	}
 }

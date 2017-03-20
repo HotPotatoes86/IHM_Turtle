@@ -2,10 +2,16 @@ package turtle.ihm;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import turtle.model.Turtle;
 
@@ -34,7 +40,7 @@ public class Command extends JPanel {
         String[] commands = new String[]{"GO","TURN","DRAW","COLOR"};
         this.actions = new JComboBox<>(commands);
         this.add(actions);
-        this.parameters = new JTextArea(1, 5);
+        this.parameters = new JTextArea(3, 10);
         JScrollPane scrollPane = new JScrollPane(this.parameters);
         this.add(scrollPane);
         this.addApplyButton();
@@ -44,31 +50,54 @@ public class Command extends JPanel {
     public void addApplyButton(){
     	JButton apply = new JButton("Apply");
         apply.addActionListener(new ActionListener(){
-
-        	//TODO test si parameters null
-        	//TODO test pour type parameters
-        	//TODO envoie fonctions dans Instructions
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				String parameters = Command.this.parameters.getText().toLowerCase();
 				String val = (String)Command.this.actions.getSelectedItem();
 				//string not null or empty
 				if (parameters != null && !parameters.isEmpty()){
+					int value;
 					switch (val){
-						case "GO": Command.this.turtle.go(Integer.parseInt(parameters)); break;
-						case "TURN": Command.this.turtle.turn(Integer.parseInt(parameters)); 
-									Command.this.pattern_pan.repaint();
+						case "GO": try {
+										//if the value is a integer
+										value = Integer.parseInt(parameters);
+										Command.this.turtle.go(value);
+									} catch (Exception e) {
+										//if the value isn't a integer, we ignore it
+										parameters = "";
+										Command.this.turtle.go();
+									}
+									Command.this.grid.repaint();
 									break;
+						case "TURN": try {
+										//if the value is a integer
+										value = Integer.parseInt(parameters);
+										Command.this.turtle.turn(value); 
+									} catch (Exception e) {
+										//if the value isn't a integer, we ignore it
+										parameters = "";
+										Command.this.turtle.turn(); 
+									}
+								Command.this.pattern_pan.repaint();
+								break;
 						case "DRAW": Command.this.turtle.draw(); break;
-						case "COLOR": Command.this.turtle.color(Color.getColor(parameters)); 
-									Command.this.colorPanel.setBackground(Color.getColor(parameters));
-									Command.this.colorPanel.setOpaque(true);
+						case "COLOR": Color color;
+									try {
+									    Field field = Class.forName("java.awt.Color").getField(parameters);
+									    color = (Color)field.get(null);
+									    Command.this.turtle.color(color); 
+										Command.this.colorPanel.setBackground(color);
+									} catch (Exception e) {
+									    color = null;
+									}
 									break;
 						default: break;
 					}
 				}else{
 					switch (val){
-						case "GO": Command.this.turtle.go(); break;
+						case "GO": Command.this.turtle.go(); 
+								Command.this.grid.repaint();
+								break;
 						case "TURN": Command.this.turtle.turn(); 
 									Command.this.pattern_pan.repaint();
 									break;
@@ -77,8 +106,6 @@ public class Command extends JPanel {
 						default: break;
 					}
 				}
-				Command.this.grid.repaint();
-				History.addText(val + "(" + parameters +")");
 			}
         	
         });

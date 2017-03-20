@@ -1,11 +1,12 @@
 package turtle.model;
 
-import turtle.ihm.Command;
+import turtle.ihm.History;
 
 public final class CommandTurn{
 	
 	public static void use(Turtle t){
 		CommandUndo.writeSave("turn()");
+		History.addText("turn()");
 		if (t.getNumberActualPattern()<t.getPatterns().size()-1){
 			t.setActualPattern(t.getNumberActualPattern()+1);
 		}else{

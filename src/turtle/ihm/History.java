@@ -4,13 +4,14 @@ import java.awt.TextArea;
 import javax.swing.*;
 
 import turtle.model.CommandUndo;
+import turtle.model.Turtle;
 
 public final class History extends JPanel{
 	
 	//----------------------Attributes----------------------//
 	private static final long serialVersionUID = 5413144947849401964L;
 	
-	private static final TextArea text = new TextArea(20,20);
+	private static final TextArea text = new TextArea(Turtle.BOARD_SIZE,20);
 	//private static JScrollPane my_scroll = new JScrollPane(text);
 	
 	//----------------------Constructors----------------------//

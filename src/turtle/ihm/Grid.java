@@ -41,24 +41,9 @@ public class Grid extends JPanel{
 		return this.board_size;
 	}
 	
-	/**
-	 * draw a line on the panel (the grid)
-	 * @param g graphics
-	 * @param x1 beginning of the line (x)
-	 * @param x2 beginning of the line (x)
-	 * @param y1 end of the line (y)
-	 * @param y2 end of the line (y)
-	 * @param c color of the line
-	 */
-	public void paintComponent(Graphics g, int x1, int x2, int y1, int y2, Color c){
-		Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(5));
-        g2.setColor(c);
-        g2.draw(new Line2D.Float(x1, y1, x2, y2));
-	}
-	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		//Turtle
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.LIGHT_GRAY);
@@ -68,10 +53,26 @@ public class Grid extends JPanel{
             	g2.draw(new Line2D.Float(j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE, i*BOX_SIZE));
         	}
         }
+        //Grid
         g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.BLACK);;
         int radius = 5;
 		g2.draw(new Ellipse2D.Double(this.turtle.getX()*BOX_SIZE + radius, this.turtle.getY()*BOX_SIZE + radius, 2.0 * radius, 2.0 * radius));
+		//Patterns
+		g2.setStroke(new BasicStroke(5));
+        g2.setColor(turtle.getColor());
+        boolean test = false;
+        int x=0, y=0;
+        for (Integer[] tab : turtle.getDrawedPatterns()) {
+        	if (test) {
+        		test=false;
+        		g2.draw(new Line2D.Float(x*BOX_SIZE, y*BOX_SIZE, tab[0]*BOX_SIZE, tab[1]*BOX_SIZE));
+        	}else {
+        		test=true;
+        		x=tab[0];
+        		y=tab[1];
+        	}
+        }
 	}
 	
 	@Override

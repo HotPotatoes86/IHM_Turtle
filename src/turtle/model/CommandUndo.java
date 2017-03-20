@@ -95,6 +95,11 @@ public final class CommandUndo {
 				break;
 			case "color()":
 				break;
+			case "draw()":
+				CommandDraw.use(t);
+				break;
+			default:
+				break;
 		}
 		CommandUndo.deleteLine(CommandUndo.path,CommandUndo.nbSaveLines);
 		CommandUndo.nbSaveLines--;
