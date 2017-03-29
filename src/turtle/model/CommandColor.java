@@ -3,29 +3,32 @@ package turtle.model;
 import java.awt.Color;
 import java.lang.reflect.Field;
 
-import turtle.ihm.History;
+public final class CommandColor{
 
-public final class CommandColor {
-
-	public static void use(Turtle t, String col){
+	/**
+	 * use the command go and verify the parameter
+	 * @param t the turtle
+	 * @param par the parameter in String
+	 * @return true if the parameter is correct or false
+	 */
+	public static boolean use(Turtle turtle, String parameters){
 		Color color;
 		try {
-		    Field field = Class.forName("java.awt.Color").getField(col);
+			//if the field is a color
+		    Field field = Class.forName("java.awt.Color").getField(parameters);
 		    color = (Color)field.get(null);
-		    t.setColor(color); 
-			t.addCommand("color(" + col + ")");
-			History.addText("color(" + col + ")");
+		    turtle.setColor(color); 
+		    turtle.getColors().add(color);
+		    turtle.addCommand("color(" + parameters + ")");
+			return true;
 		} catch (Exception e) {
-		    color = null;
+		    return false;
 		}
 	}
 	
-	public static void undo(Turtle t){
-		if (t.getNumberActualPattern()>0){
-			t.setActualPattern(t.getNumberActualPattern()-1);
-		}else{
-			t.setActualPattern(t.getPatterns().size()-1);
-		}
+	public static void undo(Turtle turtle){
+		turtle.getColors().remove(turtle.getColors().size()-1);
+		turtle.setColor(turtle.getColors().get(turtle.getColors().size()-1));
 	}
 	
 }

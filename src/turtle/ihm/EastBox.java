@@ -51,7 +51,7 @@ public class EastBox extends Box {
     public void repaintall() {
     	this.grid.repaint();
 		this.my_current_pattern.repaint();
-		this.my_current_color.repaint();
+		this.my_current_color.setBackground(this.turtle.getColor());
     }
     
     public ColorPanel getActualColor(){

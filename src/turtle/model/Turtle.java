@@ -8,6 +8,7 @@ public class Turtle {
 
 	//----------------------Attributes----------------------//
 	private Color actualColor;
+	private ArrayList<Color> colors;
 	public static int BOARD_SIZE = 15;	//height = width
 	private int posx=0, posy=0;	//turtle's position
 	private int actual_pattern=0;
@@ -26,6 +27,8 @@ public class Turtle {
 		this.actualColor = defaultColor;
 		this.patternsDrawed = new ArrayList<>();
 		this.commands = new Stack<>();
+		this.colors = new ArrayList<>();
+		this.colors.add(Color.RED);
 		Turtle.BOARD_SIZE = size;
 	}
 	
@@ -46,6 +49,10 @@ public class Turtle {
 		tab[1] = y;
 		tab[2] = c;
 		this.patternsDrawed.add(tab);
+	}
+	
+	public ArrayList<Color> getColors(){
+		return this.colors;
 	}
 	
 	public ArrayList<Object[]> getPatternDrawed(){

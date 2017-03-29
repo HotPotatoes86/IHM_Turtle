@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -49,6 +50,20 @@ public class BeginnerCommand extends JPanel {
     }
     
   //----------------------Methods----------------------//
+    /**
+     * display an error message
+     */
+    public void errorMessage() {
+    	JOptionPane.showMessageDialog(this,
+			    "Incorrect parameters.",
+			    "Error",
+			    JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * the apply button needs to recognize the command and launch the command
+     * we did the repaint here to not make the module 'model' dependent on the graphic interface
+     */
     public void addApplyButton(){
     	JButton apply = new JButton("Apply");
         apply.addActionListener(new ActionListener(){
@@ -59,16 +74,34 @@ public class BeginnerCommand extends JPanel {
 				Turtle t = BeginnerCommand.this.turtle;
 				//string not null or empty
 				if (parameters == null) parameters = "";
+				//the commands with parameters return a boolean (false if the parameter isn't correct)
 					switch (val){
-						case "GO": CommandGo.use(t, parameters); 
-								BeginnerCommand.this.grid.repaint();
-								break;
-						case "TURN": CommandTurn.use(t, parameters); 
-									BeginnerCommand.this.pattern_pan.repaint();
+						case "GO": if (CommandGo.use(t, parameters)) {
+										History.addText("go(" + parameters + ")");
+										BeginnerCommand.this.grid.repaint();
+									}else {
+										//the parameter is incorrect -> error message
+										BeginnerCommand.this.errorMessage();
+									}
 									break;
-						case "DRAW": CommandDraw.use(t); break;
-						case "COLOR": CommandColor.use(t, parameters); 
-									BeginnerCommand.this.colorPanel.setBackground(t.getColor());
+						case "TURN": if (CommandTurn.use(t, parameters)) {
+										History.addText("turn(" + parameters + ")");
+										BeginnerCommand.this.pattern_pan.repaint();
+									}else {
+										//the parameter is incorrect -> error message
+										BeginnerCommand.this.errorMessage();
+									}
+									break;
+						case "DRAW": CommandDraw.use(t); 
+									History.addText("draw()");	
+									break;
+						case "COLOR": if (CommandColor.use(t, parameters)) {
+										History.addText("color(" + parameters + ")");
+										BeginnerCommand.this.colorPanel.setBackground(t.getColor());
+									}else {
+										//the parameter is incorrect -> error message
+										BeginnerCommand.this.errorMessage();
+									}
 									break;
 						default: break;
 					}
