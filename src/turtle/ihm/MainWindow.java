@@ -57,7 +57,7 @@ public class MainWindow extends JFrame{
 							BeginnerWindow bw = new BeginnerWindow(val);
 							bw.pack();
 							bw.setVisible(true);
-							bw.setResizable(false);
+							bw.setMinimumSize(bw.getSize());
 						}else if(expertButton.isSelected()){
 							MainWindow.this.dispose();
 							ExpertWindow ew = new ExpertWindow(val);

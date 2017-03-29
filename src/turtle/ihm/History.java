@@ -26,7 +26,11 @@ public final class History extends JPanel{
     }
     
    public static void deleteLastLine(Turtle t) {
-	   System.out.println((History.text.getText().length()-1) + " - " + (t.getCommands().peek().length()-1));
-    	History.text.setText(History.text.getText().substring(0, History.text.getText().length()-t.getCommands().peek().length()-1));
+	  if (!t.getCommands().isEmpty()) {
+		   int textLength = History.text.getText().length();
+		   int commandLength = t.getCommands().peek().length();
+		   History.text.setText(History.text.getText().substring(0, textLength-commandLength-1));
+	  }
     }
+   
 }

@@ -44,7 +44,7 @@ public final class CommandTurn{
 				CommandTurn.undo(t);
 			}
 		}catch (Exception e) {
-			CommandGo.undo(t);
+			CommandTurn.undo(t);
 		}
 	}
 	

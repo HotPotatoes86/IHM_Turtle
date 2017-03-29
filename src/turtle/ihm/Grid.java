@@ -19,7 +19,7 @@ public class Grid extends JPanel{
 	
 	private Turtle turtle;
 	private int board_size;
-	public final static int BOX_SIZE = 20;
+	public static int BOX_SIZE = 20;
 
 	//----------------------Constructors----------------------//
 	/**
@@ -48,8 +48,8 @@ public class Grid extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.LIGHT_GRAY);
-        for (int i=0; i<this.board_size; i++){
-        	for (int j=0; j<this.board_size; j++){
+        for (int i=0; i<this.board_size+1; i++){
+        	for (int j=0; j<this.board_size+1; j++){
         		g2.draw(new Line2D.Float(i*BOX_SIZE, j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE));
             	g2.draw(new Line2D.Float(j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE, i*BOX_SIZE));
         	}

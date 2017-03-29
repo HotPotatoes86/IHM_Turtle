@@ -78,6 +78,7 @@ public class EastBox extends Box {
          this.undo.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
+        		 History.deleteLastLine(EastBox.this.turtle);
         		 CommandUndo.use(EastBox.this.turtle);
         		 EastBox.this.repaintall();
         	 }
