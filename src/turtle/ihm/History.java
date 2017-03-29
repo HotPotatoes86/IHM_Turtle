@@ -1,9 +1,9 @@
 package turtle.ihm;
 
 import java.awt.TextArea;
-import javax.swing.*;
 
-import turtle.model.CommandUndo;
+import javax.swing.JPanel;
+
 import turtle.model.Turtle;
 
 public final class History extends JPanel{
@@ -12,7 +12,6 @@ public final class History extends JPanel{
 	private static final long serialVersionUID = 5413144947849401964L;
 	
 	private static final TextArea text = new TextArea(Turtle.BOARD_SIZE,20);
-	//private static JScrollPane my_scroll = new JScrollPane(text);
 	
 	//----------------------Constructors----------------------//
     public History(){
@@ -26,7 +25,7 @@ public final class History extends JPanel{
     	History.text.setText(History.text.getText() + txt + "\n");
     }
     
-   public static void deleteLastLine() {
-    	History.text.setText(History.text.getText().substring(0, History.text.getText().length()-CommandUndo.lastLine().length()-1));
+   public static void deleteLastLine(Turtle t) {
+    	History.text.setText(History.text.getText().substring(0, History.text.getText().length()-t.getCommands().peek().length()-1));
     }
 }

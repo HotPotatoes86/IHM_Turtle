@@ -41,6 +41,7 @@ public class Grid extends JPanel{
 		return this.board_size;
 	}
 	
+	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		//Turtle

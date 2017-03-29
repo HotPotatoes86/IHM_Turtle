@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -90,8 +89,6 @@ public class MainWindow extends JFrame{
     	MainWindow window = new MainWindow();
     	window.pack();
     	window.setLocationRelativeTo(null);
-    	/*window.setMinimumSize(new Dimension(500,400));
-    	window.setPreferredSize(new Dimension(500,400));*/
     	window.setVisible(true);
 	}
 

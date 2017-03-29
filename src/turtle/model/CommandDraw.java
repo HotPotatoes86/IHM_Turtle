@@ -6,11 +6,12 @@ public final class CommandDraw {
 
 	public static void use(Turtle t) {
 		t.setDraw(!t.getDraw());
-		CommandUndo.writeSave("draw()");
+		t.addCommand("draw()");
 		History.addText("draw()");
 	}
 	
-	public static void draw(Turtle t) {
-		
+	public static void undo(Turtle t) {
+		t.setDraw(!t.getDraw());
 	}
+	
 }

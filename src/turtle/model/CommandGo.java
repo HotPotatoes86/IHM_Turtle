@@ -1,11 +1,27 @@
 package turtle.model;
 
+import turtle.ihm.Grid;
 import turtle.ihm.History;
 
 public final class CommandGo {
 	
+	public static void use(Turtle t, String par, Grid g) {
+		try {
+			//if the value is a integer
+			int value = Integer.parseInt(par);
+			for (int i=0; i<value; i++){
+				CommandGo.use(t);
+			}
+		} catch (Exception e) {
+			//if the value isn't a integer, we ignore it
+			par = "";
+			CommandGo.use(t);
+		}
+		g.repaint();
+	}
+	
 	public static void use(Turtle t){
-		CommandUndo.writeSave("go()");
+		t.addCommand("go()");
 		History.addText("go()");
 		for (int x : t.getActualPattern().getParts()){
 			if (t.getDraw()) t.addPatternDrawed(t.getX(), t.getY(), t.getColor());
@@ -59,10 +75,5 @@ public final class CommandGo {
 			if (t.getDraw()) t.deleteLastPatternDrawed();
 		}
 	}
-	
-	public static void use(int k, Turtle t){
-		for (int i=0; i<k; i++){
-			CommandGo.use(t);
-		}
-	}
+
 }

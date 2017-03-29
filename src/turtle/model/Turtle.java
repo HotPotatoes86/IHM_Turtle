@@ -1,11 +1,8 @@
 package turtle.model;
 
 import java.awt.Color;
-import java.io.File;
 import java.util.ArrayList;
-
-import turtle.ihm.Grid;
-import turtle.ihm.PatternPanel;
+import java.util.Stack;
 
 public class Turtle {
 
@@ -16,9 +13,7 @@ public class Turtle {
 	private int actual_pattern=0;
 	private boolean draw = false;
 	private ArrayList<Object[]> patternsDrawed;
-	
-	public final static String chemin = "save.txt";
-    private final static File fichier = new File(chemin); 
+	private Stack<String> commands;
 	
 	/*
 	 * List of possible patterns
@@ -30,13 +25,8 @@ public class Turtle {
 		this.patterns = p;
 		this.actualColor = defaultColor;
 		this.patternsDrawed = new ArrayList<>();
+		this.commands = new Stack<>();
 		Turtle.BOARD_SIZE = size;
-        try {
-        	Turtle.fichier.delete();
-            Turtle.fichier .createNewFile();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 	}
 	
 	//Default Patterns
@@ -66,6 +56,14 @@ public class Turtle {
 		this.patternsDrawed.remove(this.patternsDrawed.size()-1);
 	}
 	
+	public Stack<String> getCommands(){
+		return this.commands;
+	}
+	
+	public void addCommand(String cmd) {
+		this.commands.push(cmd);
+	}
+	
 	public void setDraw(boolean b) {
 		this.draw = b;
 	}
@@ -80,6 +78,10 @@ public class Turtle {
 	
 	public int getY(){
 		return this.posy;
+	}
+	
+	public void setColor(Color c) {
+		this.actualColor = c;
 	}
 	
 	public Color getColor(){
@@ -111,50 +113,4 @@ public class Turtle {
 		this.patterns = p;
 	}
 	
-	public void go(){
-		CommandGo.use(this);
-	}
-	
-	public void go(int k){
-		CommandGo.use(k, this);
-	}
-	
-	public void turn(){
-		CommandTurn.use(this);
-	}
-	
-	public void turn(int k){
-		CommandTurn.use(k, this);
-	}
-	
-	public void draw() {
-		CommandDraw.use(this);
-	}
-	
-	/**
-	 * undo the last command
-	 * @param g the grid to repaint
-	 * @param p the pattern panel to repaint
-	 */
-	public void undo(Grid g, PatternPanel p) {
-		CommandUndo.use(this, g, p);
-	}
-	
-	public void color(Color col){
-		CommandUndo.writeSave("color("+col+")");
-		this.actualColor = col;
-	}
-	
-	public void init(){
-		this.posx=0;
-		this.posy=0;
-		this.actual_pattern=0;
-		try{
-	        Turtle.fichier.delete();
-	        Turtle.fichier.createNewFile();
-	        //this.nbSaveLines=0;
-	    }catch (Exception e) {
-	        System.out.println(e);
-	    }
-	}
 }

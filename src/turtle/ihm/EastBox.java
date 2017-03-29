@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import turtle.model.CommandInit;
+import turtle.model.CommandUndo;
 import turtle.model.Turtle;
 
 public class EastBox extends Box {
@@ -15,7 +17,7 @@ public class EastBox extends Box {
 	
 	private PatternPanel my_patterns;
     private PatternPanel my_current_pattern;
-    private JPanel my_current_color;
+    private ColorPanel my_current_color;
         
     private JButton init;
     private JButton undo;
@@ -33,9 +35,7 @@ public class EastBox extends Box {
         this.grid = g;
         this.my_patterns = new PatternPanel(t);
         this.my_current_pattern = new PatternPanel(t,true);
-        this.my_current_color = new JPanel();
-        this.my_current_color.setBackground(t.getColor());
-        this.my_current_color.setOpaque(true);
+        this.my_current_color = new ColorPanel(t);
         
         Box current_info_content = Box.createHorizontalBox();
         current_info_content.add(this.my_current_pattern);
@@ -47,7 +47,7 @@ public class EastBox extends Box {
    }
     
   //----------------------Methods----------------------//
-    public JPanel getActualColor(){
+    public ColorPanel getActualColor(){
     	return this.my_current_color;
     }
    
@@ -63,15 +63,15 @@ public class EastBox extends Box {
     	 this.init.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
-        		 EastBox.this.turtle.init();
+        		 CommandInit.use(EastBox.this.turtle, EastBox.this.grid, EastBox.this.my_current_pattern, EastBox.this.my_current_color);
         	 }
          });
          this.undo = new JButton("Undo");
          this.undo.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
-        		 EastBox.this.turtle.undo(grid, EastBox.this.my_current_pattern);
- 				 History.deleteLastLine();
+        		 History.deleteLastLine(EastBox.this.turtle);
+        		 CommandUndo.use(EastBox.this.turtle, EastBox.this.grid, EastBox.this.my_current_pattern, EastBox.this.my_current_color);
         	 }
          });
          this.replay = new JButton("Replay");

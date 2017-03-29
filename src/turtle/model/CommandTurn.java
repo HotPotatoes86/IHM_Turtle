@@ -1,11 +1,27 @@
 package turtle.model;
 
 import turtle.ihm.History;
+import turtle.ihm.PatternPanel;
 
 public final class CommandTurn{
 	
+	public static void use(Turtle t, String par, PatternPanel p) {
+		try {
+			//if the value is a integer
+			int value = Integer.parseInt(par);
+			for (int i=0; i<value; i++){
+				CommandTurn.use(t);
+			}
+		} catch (Exception e) {
+			//if the value isn't a integer, we ignore it
+			par = "";
+			CommandTurn.use(t);
+		}
+		p.repaint();
+	}
+	
 	public static void use(Turtle t){
-		CommandUndo.writeSave("turn()");
+		t.addCommand("turn()");
 		History.addText("turn()");
 		if (t.getNumberActualPattern()<t.getPatterns().size()-1){
 			t.setActualPattern(t.getNumberActualPattern()+1);
@@ -19,12 +35,6 @@ public final class CommandTurn{
 			t.setActualPattern(t.getNumberActualPattern()-1);
 		}else{
 			t.setActualPattern(t.getPatterns().size()-1);
-		}
-	}
-	
-	public static void use(int k, Turtle t){
-		for (int i=0; i<k; i++){
-			CommandTurn.use(t);
 		}
 	}
 }
