@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import turtle.model.CommandInit;
+import turtle.model.CommandReplay;
 import turtle.model.CommandUndo;
 import turtle.model.Turtle;
 
@@ -47,6 +48,12 @@ public class EastBox extends Box {
    }
     
   //----------------------Methods----------------------//
+    public void repaintall() {
+    	this.grid.repaint();
+		this.my_current_pattern.repaint();
+		this.my_current_color.repaint();
+    }
+    
     public ColorPanel getActualColor(){
     	return this.my_current_color;
     }
@@ -63,18 +70,28 @@ public class EastBox extends Box {
     	 this.init.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
-        		 CommandInit.use(EastBox.this.turtle, EastBox.this.grid, EastBox.this.my_current_pattern, EastBox.this.my_current_color);
+        		 CommandInit.use(EastBox.this.turtle);
+        		 EastBox.this.repaintall();
         	 }
          });
          this.undo = new JButton("Undo");
          this.undo.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
-        		 History.deleteLastLine(EastBox.this.turtle);
-        		 CommandUndo.use(EastBox.this.turtle, EastBox.this.grid, EastBox.this.my_current_pattern, EastBox.this.my_current_color);
+        		 CommandUndo.use(EastBox.this.turtle);
+        		 EastBox.this.repaintall();
         	 }
          });
          this.replay = new JButton("Replay");
+         this.replay.addActionListener(new ActionListener(){
+  			@Override
+  			public void actionPerformed(ActionEvent event) {
+  				CommandReplay.init(EastBox.this.turtle);
+  				EastBox.this.repaintall();
+  				CommandReplay.use(EastBox.this.turtle);
+  				EastBox.this.repaintall();
+  			}
+          });
          this.quit = new JButton("Quit");
          this.quit.addActionListener(new ActionListener(){
  			@Override

@@ -1,11 +1,10 @@
 package turtle.model;
 
 import turtle.ihm.History;
-import turtle.ihm.PatternPanel;
 
 public final class CommandTurn{
 	
-	public static void use(Turtle t, String par, PatternPanel p) {
+	public static void use(Turtle t, String par) {
 		try {
 			//if the value is a integer
 			int value = Integer.parseInt(par);
@@ -17,7 +16,6 @@ public final class CommandTurn{
 			par = "";
 			CommandTurn.use(t);
 		}
-		p.repaint();
 	}
 	
 	public static void use(Turtle t){

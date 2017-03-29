@@ -60,10 +60,16 @@ public class BeginnerCommand extends JPanel {
 				//string not null or empty
 				if (parameters == null) parameters = "";
 					switch (val){
-						case "GO": CommandGo.use(t, parameters, BeginnerCommand.this.grid); break;
-						case "TURN": CommandTurn.use(t, parameters, BeginnerCommand.this.pattern_pan); break;
+						case "GO": CommandGo.use(t, parameters); 
+								BeginnerCommand.this.grid.repaint();
+								break;
+						case "TURN": CommandTurn.use(t, parameters); 
+									BeginnerCommand.this.pattern_pan.repaint();
+									break;
 						case "DRAW": CommandDraw.use(t); break;
-						case "COLOR": CommandColor.use(t, parameters, BeginnerCommand.this.colorPanel); break;
+						case "COLOR": CommandColor.use(t, parameters); 
+									BeginnerCommand.this.colorPanel.setBackground(t.getColor());
+									break;
 						default: break;
 					}
 			}

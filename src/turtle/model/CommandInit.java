@@ -1,13 +1,10 @@
 package turtle.model;
 
-import turtle.ihm.ColorPanel;
-import turtle.ihm.Grid;
 import turtle.ihm.History;
-import turtle.ihm.PatternPanel;
 
 public final class CommandInit {
 
-	public static void use(Turtle t, Grid g, PatternPanel pp, ColorPanel cp) {
+	public static void use(Turtle t) {
 		while (!t.getCommands().isEmpty()) {
 			History.deleteLastLine(t);
 			t.getCommands().pop();
@@ -16,8 +13,5 @@ public final class CommandInit {
 		while(!t.getPatternDrawed().isEmpty()) {
 			t.deleteLastPatternDrawed();
 		}
-		pp.repaint();
-		cp.repaint();
-		g.repaint();
 	}
 }

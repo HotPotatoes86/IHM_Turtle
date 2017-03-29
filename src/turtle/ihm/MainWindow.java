@@ -57,6 +57,7 @@ public class MainWindow extends JFrame{
 							BeginnerWindow bw = new BeginnerWindow(val);
 							bw.pack();
 							bw.setVisible(true);
+							bw.setResizable(false);
 						}else if(expertButton.isSelected()){
 							MainWindow.this.dispose();
 							ExpertWindow ew = new ExpertWindow(val);
@@ -90,6 +91,7 @@ public class MainWindow extends JFrame{
     	window.pack();
     	window.setLocationRelativeTo(null);
     	window.setVisible(true);
+    	window.setResizable(false);
 	}
 
 	public static void main(String[] args) {

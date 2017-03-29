@@ -5,7 +5,7 @@ import turtle.ihm.History;
 
 public final class CommandGo {
 	
-	public static void use(Turtle t, String par, Grid g) {
+	public static void use(Turtle t, String par) {
 		try {
 			//if the value is a integer
 			int value = Integer.parseInt(par);
@@ -17,7 +17,6 @@ public final class CommandGo {
 			par = "";
 			CommandGo.use(t);
 		}
-		g.repaint();
 	}
 	
 	public static void use(Turtle t){
