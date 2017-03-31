@@ -42,70 +42,62 @@ public class ExpertCommand extends JPanel{
 		this.initButton();
 	}
         
-        public boolean doCommand(String str){
-            String[] commands = {"GO","DRAW","TURN","COLOR"};
-            String my_command = "";
-            Character my_letter;
-            int memory_pos = 0;
-            boolean cmd_ok = false;
+        public ArrayList createCommandList(String big_string){
+            String tmp_word = "";
+            ArrayList<String> cmd_list = new ArrayList<String>();
             
-            for(int i = 0;i<str.length();i++){
-                my_letter = str.charAt(i);
-                my_command = my_command + my_letter;
-                System.out.println(my_command);
-                if(my_letter == '('){
-
-                    memory_pos = i+1;
-                    cmd_ok = true;
-                    break;
+            for(int i=0;i<big_string.length();i++){
+                if(big_string.charAt(i) != '\n'){
+                    tmp_word = tmp_word + big_string.charAt(i);
+                    if(big_string.charAt(i)== ')'){
+                        //System.out.println(tmp_word);
+                        cmd_list.add(tmp_word);
+                        tmp_word = "";
+                    }
                 }
             }
-            if(cmd_ok == true){
-                switch(my_command.toUpperCase()){
-                    case "GO(" :                                    
-                            CommandGo.use(turtle, str.substring(memory_pos, str.length()-1));
-                            ExpertCommand.this.grid.repaint();
-                            System.out.println("J'avance");
-                            break;
-                            
-                    case "TURN(" :
-                            CommandTurn.use(turtle, str.substring(memory_pos, str.length()-1));
-                            ExpertCommand.this.pattern_pan.repaint();
-                            System.out.println("Je tourne");
-                            break;
-                             
-                    case "DRAW(" : 
-                            CommandDraw.use(turtle);
-                            System.out.println("Je dessine");
-                    break;
-                    
-                    case "COLOR(" : CommandColor.use(turtle, str.substring(memory_pos, str.length()-1));
-                            ExpertCommand.this.colorPanel.setBackground(turtle.getColor());
-                            System.out.println("Je change de couleur");
-                    break;
-                    default : ;
-                    break;
-                }    
-                return true;
-            }else{
-                return false;
-            }
-        }
-        
-        public ArrayList createListCommand(String big_string){
-            
+            return cmd_list;
         }
 	
+        public void executeCommandList(ArrayList<String> cmd_list){
+            for(String a_command : cmd_list){
+                    switch(a_command.toUpperCase()){
+                        case "GO()" :                                  
+                                CommandGo.use(turtle, a_command.substring(3, a_command.length()-1));
+                                ExpertCommand.this.grid.repaint();
+                                break;
+
+                        case "TURN()" :
+                                CommandTurn.use(turtle, a_command.substring(5, a_command.length()-1));
+                                ExpertCommand.this.pattern_pan.repaint();
+                                break;
+
+                        case "DRAW()" : 
+                                CommandDraw.use(turtle);
+                                break;
+
+                        case "COLOR()" : CommandColor.use(turtle, a_command.substring(6, a_command.length()-1));
+                                ExpertCommand.this.colorPanel.setBackground(turtle.getColor());
+                                break;
+                        
+                        default : System.out.println("La commande saisie est incorrecte");
+                                break;
+                    }        
+                }
+            }
+                
+        
 	/**
 	 * initialize the apply button
 	 */
-	public void initButton() {
+	public void initButton(){
 		this.applyButton = new JButton("Apply");
 		this.applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
                             String text_to_do = ExpertCommand.this.text.getText();
-                            ExpertCommand.this.doCommand(text_to_do);
+                            ArrayList<String> command_list = ExpertCommand.this.createCommandList(text_to_do);
+                            ExpertCommand.this.executeCommandList(command_list);
 			}
 		});
 		this.add(this.text);
