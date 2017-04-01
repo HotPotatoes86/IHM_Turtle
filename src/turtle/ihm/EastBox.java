@@ -107,9 +107,10 @@ public class EastBox extends Box {
   				//uses the command replay
   				//initializes the board
   				CommandReplay.init(EastBox.this.turtle);
+  				History.deleteAll();
   				EastBox.this.repaintall();
   				//and then replays
-  				CommandReplay.use(EastBox.this.turtle);
+  				CommandReplay.use(EastBox.this.turtle, EastBox.this.grid, EastBox.this.my_current_pattern, EastBox.this.my_current_color);
   				EastBox.this.repaintall();
   			}
           });

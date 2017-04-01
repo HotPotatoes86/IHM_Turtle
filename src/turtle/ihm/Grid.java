@@ -28,7 +28,6 @@ public class Grid extends JPanel{
 	 * @param board_size board_size of the grid
 	 */
 	public Grid(Turtle t){
-		this.setSize(board_size*BOX_SIZE+20, board_size*BOX_SIZE+20);
 		this.turtle = t;
 		this.board_size = Turtle.BOARD_SIZE;
 		this.setBackground(Color.WHITE);

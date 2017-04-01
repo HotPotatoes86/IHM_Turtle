@@ -27,5 +27,6 @@ public final class CommandInit {
 		//we return to the default parameters
 		t.setColor(Color.RED);
 		t.getColorsHistory().add(Color.RED);
+		t.setDraw(false);
 	}
 }

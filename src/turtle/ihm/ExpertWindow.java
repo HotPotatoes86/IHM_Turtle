@@ -53,9 +53,9 @@ public class ExpertWindow extends JFrame implements ComponentListener{
 	public void componentResized(ComponentEvent event) {
 		int widthSize = this.getWidth()-this.commands.getWidth()-this.info.getWidth();
 		if (this.getHeight()>widthSize) {
-			Grid.BOX_SIZE = widthSize/this.board_size;
+			Grid.BOX_SIZE = widthSize/this.board_size -1;
 		}else {
-			Grid.BOX_SIZE = this.getHeight()/this.board_size;
+			Grid.BOX_SIZE = this.getHeight()/this.board_size -1;
 		}
 		this.grid.repaint();
 	}
