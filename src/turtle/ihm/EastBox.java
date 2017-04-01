@@ -27,7 +27,7 @@ public class EastBox extends Box {
     
     private Turtle turtle;
     private Grid grid;
-        
+    
   //----------------------Constructors----------------------//
     public EastBox(Turtle t, Grid g) {
         super(BoxLayout.PAGE_AXIS);

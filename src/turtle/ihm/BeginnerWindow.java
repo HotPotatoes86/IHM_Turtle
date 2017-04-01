@@ -29,7 +29,7 @@ public class BeginnerWindow extends JFrame implements ComponentListener{
 		this.grid = new Grid(turtle);
 		this.info = new EastBox(turtle, grid);
         this.westBox = Box.createVerticalBox();
-        History hist = new History();
+        History hist = new History(false);
         westBox.add(hist);
         westBox.add(new BeginnerCommand(turtle, grid, info.getActualPanel(), info.getActualColor()));
         this.add(grid);

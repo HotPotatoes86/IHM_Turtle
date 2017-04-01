@@ -1,5 +1,7 @@
 package turtle.model;
 
+import java.util.ArrayList;
+
 public final class CommandGo {
 	
 	/**
@@ -69,24 +71,32 @@ public final class CommandGo {
 	}
 	
 	public static void undo(Turtle t) {
-		for (int x : t.getActualPattern().getParts()){
+		//an intermediate variable is used which is the inverse of the pattern's parts
+		ArrayList<Integer> temp = t.getActualPattern().getParts();
+		ArrayList<Integer> patternParts = new ArrayList<>();
+		while (!temp.isEmpty()) {
+			patternParts.add(temp.get(temp.size()-1));
+			temp.remove(temp.size()-1);
+		}
+		//we can now read the parts from the end
+		for (int x : patternParts){
 			if (t.getDraw()) t.deleteLastPatternDrawed();
 			switch (x){
-				case 0: if (t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX(), t.getY()+1);
+				case 0: if (t.getX()<Turtle.BOARD_SIZE-1 && t.getY()>0) t.setCoordinates(t.getX(), t.getY()+1);
 					break;
-				case 1:	if (t.getX()>0 && t.getY()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()-1, t.getY()+1);
+				case 1:	if (t.getX()>0 && t.getY()<Turtle.BOARD_SIZE-1 && t.getY()>0 && t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()-1, t.getY()+1);
 					break;
-				case 2: if (t.getX()>0) t.setCoordinates(t.getX()-1, t.getY());
+				case 2: if (t.getX()>0 && t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()-1, t.getY());
 					break;
-				case 3: if (t.getY()>0 && t.getX()>0) t.setCoordinates(t.getX()-1, t.getY()-1);
+				case 3: if (t.getY()>0 && t.getX()>0 && t.getY()<Turtle.BOARD_SIZE-1 && t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()-1, t.getY()-1);
 					break;
-				case 4: if (t.getY()>0) t.setCoordinates(t.getX(), t.getY()-1);
+				case 4: if (t.getY()>0 && t.getY()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX(), t.getY()-1);
 					break;
-				case 5: if (t.getY()>0 && t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()+1, t.getY()-1);
+				case 5: if (t.getY()>0 && t.getX()<Turtle.BOARD_SIZE-1 && t.getY()<Turtle.BOARD_SIZE-1 && t.getX()>0) t.setCoordinates(t.getX()+1, t.getY()-1);
 					break;
-				case 6: if (t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()+1, t.getY());
+				case 6: if (t.getX()<Turtle.BOARD_SIZE-1 && t.getX()>0) t.setCoordinates(t.getX()+1, t.getY());
 					break;
-				case 7: if (t.getY()<Turtle.BOARD_SIZE-1 && t.getX()<Turtle.BOARD_SIZE-1) t.setCoordinates(t.getX()+1, t.getY()+1);
+				case 7: if (t.getY()<Turtle.BOARD_SIZE-1 && t.getX()<Turtle.BOARD_SIZE-1 && t.getY()>0 && t.getX()>0) t.setCoordinates(t.getX()+1, t.getY()+1);
 					break;
 				default: 
 					break;
