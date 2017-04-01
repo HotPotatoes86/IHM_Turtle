@@ -28,8 +28,10 @@ public class EastBox extends Box {
     private Turtle turtle;
     private Grid grid;
     
+    private boolean isExpert;
+    
   //----------------------Constructors----------------------//
-    public EastBox(Turtle t, Grid g) {
+    public EastBox(Turtle t, Grid g, boolean isExpert) {
         super(BoxLayout.PAGE_AXIS);
         
         this.turtle = t;
@@ -37,6 +39,7 @@ public class EastBox extends Box {
         this.my_patterns = new PatternPanel(t);
         this.my_current_pattern = new PatternPanel(t,true);
         this.my_current_color = new ColorPanel(t);
+        this.isExpert = isExpert;
         
         Box current_info_content = Box.createHorizontalBox();
         current_info_content.add(this.my_current_pattern);
@@ -71,6 +74,7 @@ public class EastBox extends Box {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
         		 CommandInit.use(EastBox.this.turtle);
+        		 if (!isExpert) History.deleteAll();
         		 EastBox.this.repaintall();
         	 }
          });

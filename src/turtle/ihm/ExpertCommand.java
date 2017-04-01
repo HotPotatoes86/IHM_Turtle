@@ -1,13 +1,11 @@
 package turtle.ihm;
 
 import java.awt.BorderLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import turtle.model.CommandColor;
@@ -26,8 +24,6 @@ public class ExpertCommand extends JPanel{
 	private History text;
 	private JButton applyButton;
 	private Turtle turtle;
-    private String parameters;
-    private JComboBox<String> actions;
     private PatternPanel pattern_pan;
     private ColorPanel colorPanel;
     private Grid grid;
@@ -72,6 +68,7 @@ public class ExpertCommand extends JPanel{
         }
 	
         public void executeCommandList(ArrayList<String []> cmd_list){
+        	boolean error = false;
             for(String[] a_command : cmd_list){
                     switch (a_command[0].toUpperCase()){
 						case "GO": if (CommandGo.use(turtle, a_command[1])) {
@@ -97,8 +94,12 @@ public class ExpertCommand extends JPanel{
 										ExpertCommand.this.errorMessage();
 									}
 									break;
-						default: break;
+						default: error = true;
+								this.init();
+								this.errorMessage(); //if the parameter isn't correct, we decide to display an error message
+								break;
 					}
+                    if (error) break;
                 }
          }
         

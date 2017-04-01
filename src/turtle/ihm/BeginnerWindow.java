@@ -27,7 +27,7 @@ public class BeginnerWindow extends JFrame implements ComponentListener{
 		this.board_size = size;
 		Turtle turtle = new Turtle(this.board_size);
 		this.grid = new Grid(turtle);
-		this.info = new EastBox(turtle, grid);
+		this.info = new EastBox(turtle, grid, false);
         this.westBox = Box.createVerticalBox();
         History hist = new History(false);
         westBox.add(hist);

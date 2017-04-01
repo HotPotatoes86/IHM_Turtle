@@ -1,17 +1,22 @@
 package turtle.model;
 
-import turtle.ihm.History;
+import java.awt.Color;
 
 public final class CommandInit {
 
 	public static void use(Turtle t) {
 		while (!t.getCommands().isEmpty()) {
-			History.deleteLastLine(t);
 			t.getCommands().pop();
 		}
 		t.setCoordinates(0, 0);
+		t.setActualPattern(0);
 		while(!t.getPatternDrawed().isEmpty()) {
 			t.deleteLastPatternDrawed();
 		}
+		while(!t.getColors().isEmpty()) {
+			t.getColors().remove(t.getColors().size()-1);
+		}
+		t.setColor(Color.RED);
+		t.getColors().add(Color.RED);
 	}
 }

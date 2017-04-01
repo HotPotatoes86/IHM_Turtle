@@ -21,6 +21,10 @@ public final class History extends JPanel{
     }
     
   //----------------------Methods----------------------//
+    public static void deleteAll() {
+    	History.TEXT.setText("");
+    }
+    
     public static void addText(String txt) {
     	History.TEXT.setText(History.TEXT.getText() + txt + "\n");
     }
