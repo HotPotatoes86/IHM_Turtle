@@ -28,11 +28,12 @@ public class Grid extends JPanel{
 	 * @param board_size board_size of the grid
 	 */
 	public Grid(Turtle t){
+		this.setSize(board_size*BOX_SIZE+20, board_size*BOX_SIZE+20);
 		this.turtle = t;
 		this.board_size = Turtle.BOARD_SIZE;
 		this.setBackground(Color.WHITE);
 		this.setOpaque(true);
-		this.setSize(new Dimension(this.board_size*BOX_SIZE, this.board_size*BOX_SIZE));
+		this.setSize(new Dimension(this.board_size*BOX_SIZE+10, this.board_size*BOX_SIZE+10));
 		this.repaint();
 	}
 	
@@ -52,23 +53,31 @@ public class Grid extends JPanel{
 	public void paintComponent(Graphics g){
 		//The thickness of the pencil will be increased according to the importance of the elements in the panel
 		super.paintComponent(g);
-		//------Turtle
+		//------Grid
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1)); //here the method to change the pencil's thickness
         g2.setColor(Color.LIGHT_GRAY);
         for (int i=0; i<this.board_size+1; i++){
         	for (int j=0; j<this.board_size+1; j++){
         		//draws the column's and the line's borders
-        		g2.draw(new Line2D.Float(i*BOX_SIZE, j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE));
-            	g2.draw(new Line2D.Float(j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE, i*BOX_SIZE));
+        		g2.draw(new Line2D.Float(i*BOX_SIZE+10, j*BOX_SIZE+10, i*BOX_SIZE+10, this.board_size*BOX_SIZE+10));
+            	g2.draw(new Line2D.Float(j*BOX_SIZE+10, i*BOX_SIZE+10, this.board_size*BOX_SIZE+10, i*BOX_SIZE+10));
         	}
         }
-        //------Grid
+        //------Turtle
         g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.BLACK);;
         int radius = 5;
         //draw a circle to represent the turtle
-		g2.draw(new Ellipse2D.Double(this.turtle.getX()*BOX_SIZE + radius, this.turtle.getY()*BOX_SIZE + radius, 2.0 * radius, 2.0 * radius));
+        int posX = this.turtle.getX()*BOX_SIZE + 10 - BOX_SIZE/2 + radius;
+        int posY = this.turtle.getY()*BOX_SIZE + 10 - BOX_SIZE/2 + radius;
+		g2.draw(new Ellipse2D.Double(posX, posY, 2.0 * radius, 2.0 * radius));
+		//when the draw mode is active, the turtle is filled with its color 
+		if (this.turtle.getDraw()) {
+			Ellipse2D.Double circle = new Ellipse2D.Double(posX, posY, 2.0 * radius, 2.0 * radius);
+			g2.setColor(this.turtle.getColor());;
+			g2.fill(circle);
+		}
 		//------Patterns
 		g2.setStroke(new BasicStroke(5));
         boolean test = false;
@@ -79,7 +88,7 @@ public class Grid extends JPanel{
         		if (test) {
             		test=false;
             		g2.setColor((Color)tab[2]);
-            		g2.draw(new Line2D.Float(x*BOX_SIZE, y*BOX_SIZE, (int)tab[0]*BOX_SIZE, (int)tab[1]*BOX_SIZE));
+            		g2.draw(new Line2D.Float(x*BOX_SIZE+10, y*BOX_SIZE+10, (int)tab[0]*BOX_SIZE+10, (int)tab[1]*BOX_SIZE+10));
             	}else {
             		test=true;
             		x=(int)tab[0];

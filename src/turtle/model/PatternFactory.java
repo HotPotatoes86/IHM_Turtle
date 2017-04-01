@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public final class PatternFactory {
 
 	/**
-	 * 
-	 * @param size size of the pattern
+	 * pattern : top, right, bottom, left, all the diagonals
+	 * @param size length of the pattern
 	 * @return list of patterns
 	 */
 	public final static ArrayList<Pattern> createSimplePattern(int size){
@@ -25,6 +25,11 @@ public final class PatternFactory {
 		return res;
 	}
 	
+	/**
+	 * pattern : top, right, bottom, left
+	 * @param size length of the pattern
+	 * @return list of patterns
+	 */
 	public final static ArrayList<Pattern> createReductedPattern(int size){
 		ArrayList<Pattern> res = new ArrayList<>();
 		Pattern p = new Pattern();
@@ -38,6 +43,10 @@ public final class PatternFactory {
 		return res;
 	}
 	
+	/**
+	 * pattern : moves from two boxes then turns to the left
+	 * @return list of patterns
+	 */
 	public final static ArrayList<Pattern> createTurningPattern(){
 		ArrayList<Pattern> res = new ArrayList<>();
 		Pattern p = new Pattern();

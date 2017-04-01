@@ -96,9 +96,11 @@ public class ExpertCommand extends JPanel{
 									}
 									break;
 						case "DRAW": CommandDraw.use(turtle); 
+									ExpertCommand.this.grid.repaint();
 									break;
 						case "COLOR": if (CommandColor.use(turtle, a_command[1])) {
 										ExpertCommand.this.colorPanel.setBackground(turtle.getColor());
+										ExpertCommand.this.grid.repaint();
 									}else {
 										//the parameter is incorrect -> error message
 										ExpertCommand.this.errorMessage();

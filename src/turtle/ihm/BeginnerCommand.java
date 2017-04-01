@@ -97,11 +97,13 @@ public class BeginnerCommand extends JPanel {
 									}
 									break;
 						case "DRAW": CommandDraw.use(t); 
+									BeginnerCommand.this.grid.repaint();
 									History.addText("draw()");	
 									break;
 						case "COLOR": if (CommandColor.use(t, parameters)) {
 										History.addText("color(" + parameters + ")");
 										BeginnerCommand.this.colorPanel.setBackground(t.getColor());
+										BeginnerCommand.this.grid.repaint();
 									}else {
 										//the parameter is incorrect -> error message
 										BeginnerCommand.this.errorMessage();

@@ -8,13 +8,13 @@ public class Turtle {
 
 	//----------------------Attributes----------------------//
 	private Color actualColor;
-	private ArrayList<Color> colorsHistory;
-	public static int BOARD_SIZE = 15;	//height = width
-	private int posx=0, posy=0;	//turtle's position
-	private int actual_pattern=0;
-	private boolean draw = false;
+	private ArrayList<Color> colorsHistory;	//history of the turtle's color
+	public static int BOARD_SIZE = 15;		//height = width
+	private int posx=0, posy=0;				//turtle's position
+	private int actual_pattern=0;			//number of the actual pattern
+	private boolean draw = false;			//draw mode
 	private ArrayList<Object[]> patternsDrawed;
-	private Stack<String> commands;
+	private Stack<String> commandsHistory;
 	
 	/*
 	 * List of possible patterns
@@ -26,7 +26,7 @@ public class Turtle {
 		this.patterns = p;
 		this.actualColor = defaultColor;
 		this.patternsDrawed = new ArrayList<>();
-		this.commands = new Stack<>();
+		this.commandsHistory = new Stack<>();
 		this.colorsHistory = new ArrayList<>();
 		this.colorsHistory.add(Color.RED);
 		Turtle.BOARD_SIZE = size;
@@ -34,7 +34,7 @@ public class Turtle {
 	
 	//Default Patterns
 	public Turtle(Color defaultColor, int size){
-		this(PatternFactory.createSimplePattern(1), defaultColor, size);
+		this(PatternFactory.createSimplePattern(2), defaultColor, size);
 	}
 
 	//Default Patterns & Color
@@ -43,6 +43,15 @@ public class Turtle {
 	}
 	
 	//----------------------Methods----------------------//
+	/**
+	 * add a pattern to the list of the drawed pattern
+	 * tab[0] = horizontal position
+	 * tab[1] = vertical position
+	 * tab[2] = color of the pattern
+	 * @param x horizontal position
+	 * @param y vertical position
+	 * @param c color of the pattern
+	 */
 	public void addPatternDrawed(int x, int y, Color c) {
 		Object[] tab = new Object[3];
 		tab[0] = x;
@@ -50,7 +59,23 @@ public class Turtle {
 		tab[2] = c;
 		this.patternsDrawed.add(tab);
 	}
+		
+	/**
+	 * delete the last pattern drawed
+	 */
+	public void deleteLastPatternDrawed() {
+		this.patternsDrawed.remove(this.patternsDrawed.size()-1);
+	}
+		
+	/**
+	 * add a command to the stack of commands
+	 * @param cmd the name of the command
+	 */
+	public void addCommand(String cmd) {
+		this.commandsHistory.push(cmd);
+	}
 	
+	//----------------------Getters----------------------//
 	public ArrayList<Color> getColorsHistory(){
 		return this.colorsHistory;
 	}
@@ -59,20 +84,8 @@ public class Turtle {
 		return this.patternsDrawed;
 	}
 	
-	public void deleteLastPatternDrawed() {
-		this.patternsDrawed.remove(this.patternsDrawed.size()-1);
-	}
-	
 	public Stack<String> getCommands(){
-		return this.commands;
-	}
-	
-	public void addCommand(String cmd) {
-		this.commands.push(cmd);
-	}
-	
-	public void setDraw(boolean b) {
-		this.draw = b;
+		return this.commandsHistory;
 	}
 	
 	public boolean getDraw() {
@@ -87,33 +100,38 @@ public class Turtle {
 		return this.posy;
 	}
 	
-	public void setColor(Color c) {
-		this.actualColor = c;
-	}
-	
 	public Color getColor(){
 		return this.actualColor;
-	}
-	
-	public void setActualPattern(int n) {
-		this.actual_pattern = n;
 	}
 	
 	public int getNumberActualPattern() {
 		return this.actual_pattern;
 	}
 	
-	public void setCoordinates(int x, int y) {
-		this.posx = x;
-		this.posy = y;
+	public Pattern getActualPattern(){
+		return this.patterns.get(this.actual_pattern);
 	}
 	
 	public ArrayList<Pattern> getPatterns(){
 		return this.patterns;
 	}
 	
-	public Pattern getActualPattern(){
-		return this.patterns.get(this.actual_pattern);
+	//----------------------Setters----------------------//
+	public void setDraw(boolean b) {
+		this.draw = b;
+	}
+	
+	public void setColor(Color c) {
+		this.actualColor = c;
+	}
+
+	public void setActualPattern(int n) {
+		this.actual_pattern = n;
+	}
+
+	public void setCoordinates(int x, int y) {
+		this.posx = x;
+		this.posy = y;
 	}
 	
 	public void setPatterns(ArrayList<Pattern> p){
