@@ -41,6 +41,11 @@ public class ExpertCommand extends JPanel{
 	}
         
 	//----------------------Methods----------------------//
+	/**
+	 * read the string and create a list of all the commands
+	 * @param big_string the text in the history
+	 * @return the list of a table which contains the command name and the parameter
+	 */
         public ArrayList<String []> createCommandList(String big_string){
             //the list contains a table which contains the command name and the parameter
             ArrayList<String []> cmd_list = new ArrayList<>();
@@ -67,6 +72,11 @@ public class ExpertCommand extends JPanel{
             return cmd_list;
         }
 	
+        /**
+         * read the command and launch the command
+         * if the command isn't right, we cancel all
+         * @param cmd_list list of the commands created by the precedent method
+         */
         public void executeCommandList(ArrayList<String []> cmd_list){
         	boolean error = false;
             for(String[] a_command : cmd_list){

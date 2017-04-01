@@ -23,15 +23,18 @@ public class BeginnerWindow extends JFrame implements ComponentListener{
 	 */
 	public BeginnerWindow(int size){
 		super("I'm a pretty turtle");
+		//we use a component listener to adapt the grid's size to the window's size
 		this.addComponentListener(this);
+		//we initialize the variables
 		this.board_size = size;
 		Turtle turtle = new Turtle(this.board_size);
 		this.grid = new Grid(turtle);
 		this.info = new EastBox(turtle, grid, false);
         this.westBox = Box.createVerticalBox();
-        History hist = new History(false);
+        History hist = new History(false); //false = beginner interface
         westBox.add(hist);
         westBox.add(new BeginnerCommand(turtle, grid, info.getActualPanel(), info.getActualColor()));
+        //we add all the components to the window
         this.add(grid);
         this.add(info, BorderLayout.EAST);
         this.add(westBox,BorderLayout.WEST);
@@ -39,16 +42,17 @@ public class BeginnerWindow extends JFrame implements ComponentListener{
 
 	@Override
 	public void componentHidden(ComponentEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void componentMoved(ComponentEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * adapt the grid's size to the window's size 
+	 */
 	@Override
 	public void componentResized(ComponentEvent event) {
 		int widthSize = this.getWidth()-this.westBox.getWidth()-this.info.getWidth();
@@ -62,7 +66,6 @@ public class BeginnerWindow extends JFrame implements ComponentListener{
 
 	@Override
 	public void componentShown(ComponentEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -13,10 +13,10 @@ public final class CommandInit {
 		while(!t.getPatternDrawed().isEmpty()) {
 			t.deleteLastPatternDrawed();
 		}
-		while(!t.getColors().isEmpty()) {
-			t.getColors().remove(t.getColors().size()-1);
+		while(!t.getColorsHistory().isEmpty()) {
+			t.getColorsHistory().remove(t.getColorsHistory().size()-1);
 		}
 		t.setColor(Color.RED);
-		t.getColors().add(Color.RED);
+		t.getColorsHistory().add(Color.RED);
 	}
 }

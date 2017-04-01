@@ -37,32 +37,43 @@ public class Grid extends JPanel{
 	}
 	
 	//----------------------Methods----------------------//
+	/**
+	 * 
+	 * @return the size of the board
+	 */
 	public int getBoardSize() {
 		return this.board_size;
 	}
 	
+	/**
+	 * draws the turtle, the lines of the grid and the patterns drawed on the panel
+	 */
 	@Override
 	public void paintComponent(Graphics g){
+		//The thickness of the pencil will be increased according to the importance of the elements in the panel
 		super.paintComponent(g);
-		//Turtle
+		//------Turtle
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(1));
+		g2.setStroke(new BasicStroke(1)); //here the method to change the pencil's thickness
         g2.setColor(Color.LIGHT_GRAY);
         for (int i=0; i<this.board_size+1; i++){
         	for (int j=0; j<this.board_size+1; j++){
+        		//draws the column's and the line's borders
         		g2.draw(new Line2D.Float(i*BOX_SIZE, j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE));
             	g2.draw(new Line2D.Float(j*BOX_SIZE, i*BOX_SIZE, this.board_size*BOX_SIZE, i*BOX_SIZE));
         	}
         }
-        //Grid
+        //------Grid
         g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.BLACK);;
         int radius = 5;
+        //draw a circle to represent the turtle
 		g2.draw(new Ellipse2D.Double(this.turtle.getX()*BOX_SIZE + radius, this.turtle.getY()*BOX_SIZE + radius, 2.0 * radius, 2.0 * radius));
-		//Patterns
+		//------Patterns
 		g2.setStroke(new BasicStroke(5));
         boolean test = false;
         int x=0, y=0;
+        //the tab contains the first position of X and Y and then the last position (in the next passage in the loop)
         for (Object[] tab : this.turtle.getPatternDrawed()) {
         	try {
         		if (test) {

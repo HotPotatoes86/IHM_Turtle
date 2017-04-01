@@ -45,9 +45,18 @@ public class EastBox extends Box {
         current_info_content.add(this.my_current_pattern);
         current_info_content.add(this.my_current_color);
         
-        this.add(my_patterns);
-        this.add(current_info_content);
+        //initialize the buttons
         this.initButtons();
+        JPanel panel_button = new JPanel();
+        panel_button.setLayout(new GridLayout(2,2));
+        panel_button.add(this.init);
+        panel_button.add(this.undo);
+        panel_button.add(this.replay);
+        panel_button.add(this.quit);
+        
+        this.add(my_patterns);
+        this.add(current_info_content); 
+        this.add(panel_button); 
    }
     
   //----------------------Methods----------------------//
@@ -73,7 +82,9 @@ public class EastBox extends Box {
     	 this.init.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
+        		 //uses the command init
         		 CommandInit.use(EastBox.this.turtle);
+        		 //if it's the beginner interface, we delete all the history
         		 if (!isExpert) History.deleteAll();
         		 EastBox.this.repaintall();
         	 }
@@ -82,7 +93,9 @@ public class EastBox extends Box {
          this.undo.addActionListener(new ActionListener() {
         	 @Override
         	 public void actionPerformed(ActionEvent event) {
+        		 //we remove the last command in the history
         		 History.deleteLastLine(EastBox.this.turtle);
+        		 //uses the command undo
         		 CommandUndo.use(EastBox.this.turtle);
         		 EastBox.this.repaintall();
         	 }
@@ -91,26 +104,23 @@ public class EastBox extends Box {
          this.replay.addActionListener(new ActionListener(){
   			@Override
   			public void actionPerformed(ActionEvent event) {
+  				//uses the command replay
+  				//initializes the board
   				CommandReplay.init(EastBox.this.turtle);
   				EastBox.this.repaintall();
+  				//and then replays
   				CommandReplay.use(EastBox.this.turtle);
   				EastBox.this.repaintall();
   			}
           });
          this.quit = new JButton("Quit");
+         //exits the program
          this.quit.addActionListener(new ActionListener(){
  			@Override
  			public void actionPerformed(ActionEvent event) {
  				System.exit(0);
  			}
          });
-         JPanel panel_button = new JPanel();
-         panel_button.setLayout(new GridLayout(2,2));
-         panel_button.add(this.init);
-         panel_button.add(this.undo);
-         panel_button.add(this.replay);
-         panel_button.add(this.quit);
-         this.add(panel_button);
     }
     
     

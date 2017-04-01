@@ -18,7 +18,7 @@ public final class CommandColor{
 		    Field field = Class.forName("java.awt.Color").getField(parameters);
 		    color = (Color)field.get(null);
 		    turtle.setColor(color); 
-		    turtle.getColors().add(color);
+		    turtle.getColorsHistory().add(color);
 		    turtle.addCommand("color(" + parameters + ")");
 			return true;
 		} catch (Exception e) {
@@ -27,8 +27,8 @@ public final class CommandColor{
 	}
 	
 	public static void undo(Turtle turtle){
-		turtle.getColors().remove(turtle.getColors().size()-1);
-		turtle.setColor(turtle.getColors().get(turtle.getColors().size()-1));
+		turtle.getColorsHistory().remove(turtle.getColorsHistory().size()-1);
+		turtle.setColor(turtle.getColorsHistory().get(turtle.getColorsHistory().size()-1));
 	}
 	
 }

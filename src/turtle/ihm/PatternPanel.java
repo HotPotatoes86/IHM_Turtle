@@ -39,9 +39,13 @@ public class PatternPanel extends JPanel{
 	}
 	
 	//----------------------Methods----------------------//
+	/**
+	 * draws all the possible patterns on the panel
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		//draws a circle in the center
 		this.centerX = (int)this.getSize().getWidth()/2;
 		this.centerY = (int)this.getSize().getHeight()/2;
 		for (int i=1; i<5; i++){
@@ -50,16 +54,19 @@ public class PatternPanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.LIGHT_GRAY);
+        //draws the lines
         for (int i=0; i<this.centerX*2; i+=10){
         	for (int j=0; j<this.centerY*2; j+=10){
         		g2.draw(new Line2D.Float(i, j, i, j+10));
         		g2.draw(new Line2D.Float(i, j, i+10, j));
         	}
         }
+        Color[] tabColor = {Color.BLUE, Color.BLACK, Color.GREEN, Color.MAGENTA, Color.RED, Color.GRAY, Color.ORANGE, Color.PINK, Color.YELLOW};
+        //draws the current pattern
 		if (isCurrentPattern){
-			this.drawPattern(g2, Color.BLUE, this.turtle.getActualPattern());
+			this.drawPattern(g2, tabColor[this.turtle.getNumberActualPattern()], this.turtle.getActualPattern());
 		}else{
-			Color[] tabColor = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW, Color.GRAY, Color.PINK, Color.ORANGE};
+		//or draws all the possible pattern
 			int i=0;
 			for (Pattern p : this.turtle.getPatterns()){
 				this.drawPattern(g2, tabColor[i], p);
@@ -72,13 +79,27 @@ public class PatternPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * draws a circle
+	 * @param cg the graphics
+	 * @param xCenter the horizontal position of the center of the circle
+	 * @param yCenter the vertical position of the center of the circle
+	 * @param r the radius of the circle
+	 */
     public void drawCircle(Graphics cg, int xCenter, int yCenter, int r) {
         cg.drawOval(xCenter-r, yCenter-r, 2*r, 2*r);
     }
 	
+    /**
+     * draws a pattern
+     * @param g2 the graphics
+     * @param c the color of the pattern
+     * @param p the pattern we want to draw
+     */
 	public void drawPattern(Graphics2D g2, Color c, Pattern p){
 		int posx=this.centerX;
 		int posy=this.centerY;
+		//for each parts of the pattern
 		for (int x : p.getParts()){
 	        g2.setStroke(new BasicStroke(2));
 	        g2.setColor(c);
@@ -108,6 +129,7 @@ public class PatternPanel extends JPanel{
 				default: 
 					break;
 			}
+	      //the corresponding line is drawn
 	        g2.draw(new Line2D.Float(p1, p2, posx, posy));
 		}
 	}

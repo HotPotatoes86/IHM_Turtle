@@ -11,6 +11,10 @@ public class ColorPanel extends JPanel{
 
 	private static final long serialVersionUID = 7209905720807974452L;
 
+	/**
+	 * a simple panel where the color is displayed
+	 * @param t
+	 */
 	public ColorPanel(Turtle t){
 		super();
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));

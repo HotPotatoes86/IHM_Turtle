@@ -35,16 +35,20 @@ public class BeginnerCommand extends JPanel {
      */
     public BeginnerCommand(Turtle turtle, Grid g, PatternPanel pan, ColorPanel pan2){
         super(new FlowLayout());
+        //initializes the variables
         this.grid = g;
         this.colorPanel = pan2;
         this.pattern_pan = pan;
         this.turtle = turtle;
         
+        //list of all possible commands
         String[] commands = new String[]{"GO","TURN","DRAW","COLOR"};
         this.actions = new JComboBox<>(commands);
         this.add(actions);
         this.parameters = new JTextArea(3, 10);
         JScrollPane scrollPane = new JScrollPane(this.parameters);
+        
+        //adds the elements to the panel
         this.add(scrollPane);
         this.addApplyButton();
     }
@@ -69,8 +73,8 @@ public class BeginnerCommand extends JPanel {
         apply.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				String parameters = BeginnerCommand.this.parameters.getText().toLowerCase();
-				String val = (String)BeginnerCommand.this.actions.getSelectedItem();
+				String parameters = BeginnerCommand.this.parameters.getText().toLowerCase(); //the written parameters
+				String val = (String)BeginnerCommand.this.actions.getSelectedItem(); //the selected command
 				Turtle t = BeginnerCommand.this.turtle;
 				//string not null or empty
 				if (parameters == null) parameters = "";
@@ -108,6 +112,7 @@ public class BeginnerCommand extends JPanel {
 			}
         	
         });
+        //add the apply button to the panel
         this.add(apply);
     }
 }
