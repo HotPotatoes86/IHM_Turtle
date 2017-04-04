@@ -51,7 +51,7 @@ public final class History extends JPanel{
 		   int commandLength = t.getCommands().peek().length(); //the top of the stack is the last command
 		   try {
 			   //if there are the char '\n' before the command, we also remove it
-			   if (History.TEXT.getText().charAt(textLength-commandLength-1)=='\n') {
+			   if (History.TEXT.getText().charAt(textLength-commandLength-2)=='\n') {
 				   History.TEXT.setText(History.TEXT.getText().substring(0, textLength-commandLength-1));
 			   }else {
 				   History.TEXT.setText(History.TEXT.getText().substring(0, textLength-commandLength));

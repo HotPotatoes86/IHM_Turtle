@@ -10,6 +10,7 @@ public final class CommandTurn{
 	 */
 	public static boolean use(Turtle t, String par) {
 		if (par.isEmpty() || par.equals("")) {
+			t.addCommand("turn()");
 			CommandTurn.use(t);
 			return true;
 		}else {
@@ -20,6 +21,7 @@ public final class CommandTurn{
 				for (int i=0; i<value; i++){
 					CommandTurn.use(t);
 				}
+				t.addCommand("turn(" + value + ")");
 				return true;
 			} catch (Exception e) {
 				//if the value isn't a integer, we return false
@@ -33,7 +35,6 @@ public final class CommandTurn{
 	 * @param t the turtle
 	 */
 	public static void use(Turtle t){
-		t.addCommand("turn()");
 		if (t.getNumberActualPattern()<t.getPatterns().size()-1){
 			//the pattern is the next
 			t.setActualPattern(t.getNumberActualPattern()+1);

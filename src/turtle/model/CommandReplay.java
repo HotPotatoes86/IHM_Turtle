@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import turtle.ihm.ColorPanel;
 import turtle.ihm.Grid;
-import turtle.ihm.History;
 import turtle.ihm.PatternPanel;
 
 public final class CommandReplay {
@@ -62,7 +61,7 @@ public final class CommandReplay {
 							case "color": CommandColor.use(t, parameters); break;
 							default: break;
 						}
-						History.addText(temp.peek());
+						//History.addText(temp.peek());
 						try{
 							Thread.sleep(400);
 						}
